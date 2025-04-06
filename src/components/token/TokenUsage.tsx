@@ -86,22 +86,9 @@ const TokenTable = styled.table`
   }
 `;
 
-interface UsageScenario {
-  title: string;
-  icon: string;
-  description: string;
-  tokenCost: string;
-}
-
-interface TokenTier {
-  tier: string;
-  holdAmount: string;
-  benefits: string;
-}
-
-const TokenUsage: React.FC = () => {
+const TokenUsage = () => {
   // Example usage scenarios
-  const usageScenarios: UsageScenario[] = [
+  const usageScenarios = [
     {
       title: 'Web Browsing',
       icon: '🌐',
@@ -129,7 +116,7 @@ const TokenUsage: React.FC = () => {
   ];
   
   // Example token tier benefits
-  const tokenTiers: TokenTier[] = [
+  const tokenTiers = [
     {
       tier: 'Basic',
       holdAmount: '100',
