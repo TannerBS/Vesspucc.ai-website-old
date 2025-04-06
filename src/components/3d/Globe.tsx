@@ -1,30 +1,40 @@
-import React, { useRef } from 'react'
+import React, { useRef, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { useTexture } from '@react-three/drei'
-import { Mesh } from 'three'
+import { Mesh, SphereGeometry, MeshStandardMaterial } from 'three'
 
 const Globe: React.FC = () => {
   const meshRef = useRef<Mesh>(null)
   
-  // For now we'll use placeholder for textures
-  // const globeTexture = useTexture('/src/assets/images/parchment-map.jpg')
+  // Create geometry with reduced resolution for better performance
+  // Reduced from 64,64 segments to 24,24 segments
+  const geometry = useMemo(() => new SphereGeometry(2, 24, 24), [])
   
+  // Create optimized material
+  const material = useMemo(() => new MeshStandardMaterial({
+    color: "#F5E6D3",
+    metalness: 0.2,
+    roughness: 0.8,
+    // Add performance optimizations
+    flatShading: true,
+    dithering: false,
+  }), [])
+  
+  // Use a more efficient animation method - rotate only every 3rd frame
+  let frameCount = 0;
   useFrame(() => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y += 0.001
+    frameCount++;
+    if (frameCount % 3 === 0 && meshRef.current) {
+      meshRef.current.rotation.y += 0.0003
     }
   })
 
   return (
-    <mesh ref={meshRef}>
-      <sphereGeometry args={[2, 64, 64]} />
-      <meshStandardMaterial 
-        color="#F5E6D3"
-        // map={globeTexture} 
-        metalness={0.2}
-        roughness={0.8}
-      />
-    </mesh>
+    <mesh 
+      ref={meshRef} 
+      geometry={geometry} 
+      material={material}
+      frustumCulled={true} // Enable frustum culling
+    />
   )
 }
 

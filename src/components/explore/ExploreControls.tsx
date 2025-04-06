@@ -24,13 +24,13 @@ const LocationButtons = styled.div`
 `;
 
 interface LocationButtonProps {
-  active: boolean;
+  $active: boolean;  // Changed from active to $active
   theme?: Theme;
 }
 
 const LocationButton = styled.button<LocationButtonProps>`
-  background-color: ${({ active, theme }) => 
-    active ? theme.colors.accent : theme.colors.secondary};
+  background-color: ${({ $active, theme }) => 
+    $active ? theme.colors.accent : theme.colors.secondary};
   color: ${({ theme }) => theme.colors.white};
   border: none;
   border-radius: ${({ theme }) => theme.borderRadius.md};
@@ -90,19 +90,19 @@ const ExploreControls: React.FC<ExploreControlsProps> = ({ currentLocation, setC
     <ControlsContainer>
       <LocationButtons>
         <LocationButton 
-          active={currentLocation === 'harbor'}
+          $active={currentLocation === 'harbor'}
           onClick={() => setCurrentLocation('harbor')}
         >
           Digital Harbor
         </LocationButton>
         <LocationButton 
-          active={currentLocation === 'island'}
+          $active={currentLocation === 'island'}
           onClick={() => setCurrentLocation('island')}
         >
           Agent Island
         </LocationButton>
         <LocationButton 
-          active={currentLocation === 'sea'}
+          $active={currentLocation === 'sea'}
           onClick={() => setCurrentLocation('sea')}
         >
           Data Ocean

@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
 import MapExplorer from '../components/explore/MapExplorer'
 import ExploreControls from '../components/explore/ExploreControls'
+import WebGLErrorHandler from '../components/3d/WebGLErrorHandler'
+import { MapExplorerFallback } from '../components/3d/Fallbacks'
+import CustomOrbitControls from '../components/3d/CustomOrbitControls'
+import WebGLContextMonitor from '../components/3d/WebGLContextMonitor'
+import WheelEventManager from '../components/3d/WheelEventManager'
 
 const ExploreContainer = styled.div`
   min-height: 100vh;
@@ -48,12 +52,35 @@ const Explore: React.FC = () => {
   return (
     <ExploreContainer>
       <CanvasContainer>
-        <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-          <ambientLight intensity={0.5} />
-          <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-          <MapExplorer location={currentLocation} />
-          <OrbitControls enableZoom={true} enablePan={true} />
-        </Canvas>
+        <WebGLErrorHandler 
+          fallback={
+            <MapExplorerFallback 
+              location={currentLocation} 
+              onLocationSelect={(loc) => setCurrentLocation(loc as 'harbor' | 'island' | 'sea')} 
+            />
+          }
+        >
+          <Canvas 
+            camera={{ position: [0, 0, 5], fov: 75 }}
+            gl={{ 
+              antialias: true,
+              stencil: false,
+              depth: true,
+              alpha: true,
+              powerPreference: 'high-performance',
+              preserveDrawingBuffer: true,
+              precision: 'mediump',
+              logarithmicDepthBuffer: false
+            }}
+          >
+            <ambientLight intensity={0.5} />
+            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+            <MapExplorer location={currentLocation} />
+            <CustomOrbitControls enableZoom={true} enablePan={true} />
+            <WheelEventManager />
+            <WebGLContextMonitor />
+          </Canvas>
+        </WebGLErrorHandler>
       </CanvasContainer>
       
       <ContentContainer>

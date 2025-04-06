@@ -1,10 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
 import Hero from '../components/home/Hero'
 import Features from '../components/home/Features'
 import Globe from '../components/3d/Globe'
+import WebGLErrorHandler from '../components/3d/WebGLErrorHandler'
+import { GlobeFallback } from '../components/3d/Fallbacks'
+import CustomOrbitControls from '../components/3d/CustomOrbitControls'
+import WebGLContextMonitor from '../components/3d/WebGLContextMonitor'
 
 const HomeContainer = styled.div`
   min-height: 100vh;
@@ -30,12 +33,27 @@ const Home: React.FC = () => {
   return (
     <HomeContainer>
       <CanvasContainer>
-        <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-          <ambientLight intensity={0.5} />
-          <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-          <Globe />
-          <OrbitControls enableZoom={false} enablePan={false} />
-        </Canvas>
+        <WebGLErrorHandler fallback={<GlobeFallback />}>
+          <Canvas 
+            camera={{ position: [0, 0, 5], fov: 75 }}
+            gl={{ 
+              antialias: true,
+              stencil: false,
+              depth: true,
+              alpha: true,
+              powerPreference: 'high-performance',
+              preserveDrawingBuffer: true,
+              precision: 'mediump',
+              logarithmicDepthBuffer: false
+            }}
+          >
+            <ambientLight intensity={0.5} />
+            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+            <Globe />
+            <CustomOrbitControls enableZoom={false} enablePan={false} />
+            <WebGLContextMonitor />
+          </Canvas>
+        </WebGLErrorHandler>
       </CanvasContainer>
       <ContentContainer>
         <Hero />
