@@ -1,62 +1,54 @@
-# Vespucc.ai
+# React + TypeScript + Vite
 
-Welcome to **Vespucc.ai**, a next-level platform where users harness powerful AI agents—like web browser agents—unlocked with cryptocurrency tokens. Built with a sleek 3D frontend and a dynamic backend, this is exploration in the digital age, redefined.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## What’s This About?
-We’re creating a site where:
-- **AI Agents** connect to *all* MCP (Model Context Protocol) servers, giving users universal access to cutting-edge tools and data.
-- **Crypto Payments** gate the experience—hold our token, spend it, use the agents.
-- **3D Vibes** make it pop with an interactive, modern frontend.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-Think of it as a portal to the future: part tech, part art, all innovation.
+## Expanding the ESLint configuration
 
----
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-## Tech Stack
-- **Frontend**: 
-  - *React* - Builds the UI with reusable pieces.
-  - *Vite* - Keeps it fast and live while we code.
-  - *Three.js* (via React Three Fiber) - Powers the 3D magic.
-- **Backend**: 
-  - *Express* - Runs the server, handles requests, talks to agents.
-- **Agent**: 
-  - *MCP* - Hooks our AI into a world of tools and data.
-- **Tools**: 
-  - *NPM* - Grabs all the pieces we need.
+```js
+export default tseslint.config({
+  extends: [
+    // Remove ...tseslint.configs.recommended and replace with this
+    ...tseslint.configs.recommendedTypeChecked,
+    // Alternatively, use this for stricter rules
+    ...tseslint.configs.strictTypeChecked,
+    // Optionally, add this for stylistic rules
+    ...tseslint.configs.stylisticTypeChecked,
+  ],
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
+```
 
----
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-## Design & Styling
-Our design philosophy merges historical cartography with modern web aesthetics:
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-### Visual Theme
-- **Background**: Inspired by Amerigo Vespucci's maps, featuring aged parchment textures and intricate cartographic details
-- **Color Palette**:
-  - *Primary*: Rich sepia tones (#8B4513) for historical authenticity
-  - *Secondary*: Naval blues (#1B4B73) for maritime elements
-  - *Accent*: Antique gold (#CFB53B) for interactive elements
-  - *Background*: Weathered parchment (#F5E6D3)
-
-### Modern Elements
-- **Typography**:
-  - Headers: "Spectral" for historical elegance
-  - Body: "Inter" for modern readability
-- **UI Components**:
-  - Floating glass-morphic panels
-  - Subtle navigation compass elements
-  - Interactive map markers and waypoints
-
-### Interaction Design
-- Smooth transitions between sections
-- Parallax scrolling effects on map elements
-- Responsive scaling for all device sizes
-
----
-
-## Getting Started
-1. **Clone the Repo**:
-   ```bash
-   git clone [your-repo-url]
-   cd vespucc.ai
+export default tseslint.config({
+  plugins: {
+    // Add the react-x and react-dom plugins
+    'react-x': reactX,
+    'react-dom': reactDom,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended typescript rules
+    ...reactX.configs['recommended-typescript'].rules,
+    ...reactDom.configs.recommended.rules,
+  },
+})
+```
