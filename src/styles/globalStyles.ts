@@ -1,9 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
 import { Theme } from './theme';
 
+// Font imports should be in the HTML or imported directly, not in styled-components template literals
+// These imports are moved to index.html
+
 const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
-  @import url('https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600;700&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
   * {
     box-sizing: border-box;

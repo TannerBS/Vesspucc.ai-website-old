@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import TokenStats from '../components/token/TokenStats'
-import TokenPurchase from '../components/token/TokenPurchase'
-import TokenUsage from '../components/token/TokenUsage'
+import TokenStats from '../components/token/TokenStats.tsx'
+import TokenPurchase from '../components/token/TokenPurchase.tsx'
+import TokenUsage from '../components/token/TokenUsage.tsx'
 
 const TokenContainer = styled.div`
   min-height: 100vh;
