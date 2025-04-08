@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background - Ocean -->
+  <rect width="1200" height="600" fill="#D6E8F4" />
+  
+  <!-- Map Border -->
+  <rect x="10" y="10" width="1180" height="580" fill="none" stroke="#8B4513" stroke-width="5" />
+  
+  <!-- Compass Rose -->
+  <g transform="translate(1050, 500)">
+    <circle cx="0" cy="0" r="40" fill="none" stroke="#8B4513" stroke-width="2" />
+    <circle cx="0" cy="0" r="30" fill="none" stroke="#8B4513" stroke-width="1" />
+    <line x1="0" y1="-40" x2="0" y2="40" stroke="#8B4513" stroke-width="2" />
+    <line x1="-40" y1="0" x2="40" y2="0" stroke="#8B4513" stroke-width="2" />
+    <text x="0" y="-45" text-anchor="middle" fill="#8B4513" font-family="serif" font-size="12">N</text>
+    <text x="45" y="0" text-anchor="middle" fill="#8B4513" font-family="serif" font-size="12">E</text>
+    <text x="0" y="55" text-anchor="middle" fill="#8B4513" font-family="serif" font-size="12">S</text>
+    <text x="-45" y="0" text-anchor="middle" fill="#8B4513" font-family="serif" font-size="12">W</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" fill="#8B4513" font-family="serif" font-weight="bold" font-size="24">Vespucci's World Map</text>
+  
+  <!-- Continents (simplified shapes) -->
+  <!-- North America -->
+  <path d="M150,120 C200,100 250,150 300,140 C350,130 370,180 390,200 C410,220 430,250 420,300 C410,350 380,380 350,400 C320,420 280,430 250,410 C220,390 200,350 180,320 C160,290 130,260 120,230 C110,200 120,150 150,120Z" fill="#E8D0AA" stroke="#8B4513" stroke-width="2" />
+  
+  <!-- South America -->
+  <path d="M300,400 C320,380 350,390 370,410 C390,430 400,460 410,490 C420,520 410,550 390,570 C370,590 340,580 320,560 C300,540 290,510 280,480 C270,450 280,420 300,400Z" fill="#E8D0AA" stroke="#8B4513" stroke-width="2" />
+  
+  <!-- Europe -->
+  <path d="M550,150 C580,140 610,160 630,180 C650,200 660,230 650,260 C640,290 610,300 580,290 C550,280 530,250 520,220 C510,190 520,160 550,150Z" fill="#E8D0AA" stroke="#8B4513" stroke-width="2" />
+  
+  <!-- Africa -->
+  <path d="M550,280 C580,270 610,290 630,320 C650,350 660,390 650,430 C640,470 610,500 580,510 C550,520 520,500 500,470 C480,440 470,400 480,360 C490,320 520,290 550,280Z" fill="#E8D0AA" stroke="#8B4513" stroke-width="2" />
+  
+  <!-- Asia -->
+  <path d="M650,120 C700,100 750,110 800,130 C850,150 900,180 930,220 C960,260 970,310 950,350 C930,390 890,410 850,420 C810,430 770,420 730,400 C690,380 660,350 640,310 C620,270 610,220 630,180 C650,140 600,140 650,120Z" fill="#E8D0AA" stroke="#8B4513" stroke-width="2" />
+  
+  <!-- Australia -->
+  <path d="M900,400 C930,390 960,410 980,440 C1000,470 1010,510 990,540 C970,570 930,580 900,560 C870,540 850,500 860,460 C870,420 870,410 900,400Z" fill="#E8D0AA" stroke="#8B4513" stroke-width="2" />
+  
+  <!-- Antarctica (partial) -->
+  <path d="M300,550 C400,530 500,540 600,550 C700,560 800,550 900,540 C950,535 980,530 1000,520 C1000,540 1000,560 1000,580 C900,580 800,580 700,580 C600,580 500,580 400,580 C350,580 300,580 250,580 C250,570 250,560 300,550Z" fill="#E8D0AA" stroke="#8B4513" stroke-width="2" />
+  
+  <!-- Ocean Labels -->
+  <text x="250" y="200" text-anchor="middle" fill="#1E5799" font-family="serif" font-style="italic" font-size="16">Atlantic Ocean</text>
+  <text x="800" y="200" text-anchor="middle" fill="#1E5799" font-family="serif" font-style="italic" font-size="16">Pacific Ocean</text>
+  <text x="700" y="350" text-anchor="middle" fill="#1E5799" font-family="serif" font-style="italic" font-size="16">Indian Ocean</text>
+  <text x="500" y="100" text-anchor="middle" fill="#1E5799" font-family="serif" font-style="italic" font-size="16">Arctic Ocean</text>
+  <text x="600" y="520" text-anchor="middle" fill="#1E5799" font-family="serif" font-style="italic" font-size="16">Southern Ocean</text>
+  
+  <!-- Seven Wonders of the World (Modern) -->
+  <!-- Great Wall of China -->
+  <circle cx="820" cy="220" r="8" fill="#CFB53B" stroke="#8B4513" stroke-width="2" />
+  <text x="820" y="205" text-anchor="middle" fill="#8B4513" font-family="serif" font-size="12">Great Wall</text>
+  
+  <!-- Petra -->
+  <circle cx="620" cy="280" r="8" fill="#CFB53B" stroke="#8B4513" stroke-width="2" />
+  <text x="620" y="265" text-anchor="middle" fill="#8B4513" font-family="serif" font-size="12">Petra</text>
+  
+  <!-- Christ the Redeemer -->
+  <circle cx="350" cy="450" r="8" fill="#CFB53B" stroke="#8B4513" stroke-width="2" />
+  <text x="350" y="435" text-anchor="middle" fill="#8B4513" font-family="serif" font-size="12">Christ the Redeemer</text>
+  
+  <!-- Machu Picchu -->
+  <circle cx="300" cy="450" r="8" fill="#CFB53B" stroke="#8B4513" stroke-width="2" />
+  <text x="300" y="435" text-anchor="middle" fill="#8B4513" font-family="serif" font-size="12">Machu Picchu</text>
+  
+  <!-- Chichen Itza -->
+  <circle cx="250" cy="300" r="8" fill="#CFB53B" stroke="#8B4513" stroke-width="2" />
+  <text x="250" y="285" text-anchor="middle" fill="#8B4513" font-family="serif" font-size="12">Chichen Itza</text>
+  
+  <!-- Colosseum -->
+  <circle cx="580" cy="230" r="8" fill="#CFB53B" stroke="#8B4513" stroke-width="2" />
+  <text x="580" y="215" text-anchor="middle" fill="#8B4513" font-family="serif" font-size="12">Colosseum</text>
+  
+  <!-- Taj Mahal -->
+  <circle cx="730" cy="280" r="8" fill="#CFB53B" stroke="#8B4513" stroke-width="2" />
+  <text x="730" y="265" text-anchor="middle" fill="#8B4513" font-family="serif" font-size="12">Taj Mahal</text>
+  
+  <!-- Decorative Elements -->
+  <path d="M80,80 C90,70 100,70 110,80 C120,90 120,100 110,110 C100,120 90,120 80,110 C70,100 70,90 80,80Z" fill="none" stroke="#8B4513" stroke-width="1" />
+  <path d="M1100,80 C1110,70 1120,70 1130,80 C1140,90 1140,100 1130,110 C1120,120 1110,120 1100,110 C1090,100 1090,90 1100,80Z" fill="none" stroke="#8B4513" stroke-width="1" />
+  <path d="M80,500 C90,490 100,490 110,500 C120,510 120,520 110,530 C100,540 90,540 80,530 C70,520 70,510 80,500Z" fill="none" stroke="#8B4513" stroke-width="1" />
+  <path d="M1100,500 C1110,490 1120,490 1130,500 C1140,510 1140,520 1130,530 C1120,540 1110,540 1100,530 C1090,520 1090,510 1100,500Z" fill="none" stroke="#8B4513" stroke-width="1" />
+  
+  <!-- Legend -->
+  <rect x="50" y="520" width="200" height="60" fill="rgba(255,255,255,0.7)" stroke="#8B4513" stroke-width="1" />
+  <circle cx="70" cy="535" r="6" fill="#CFB53B" stroke="#8B4513" stroke-width="1" />
+  <text x="85" y="540" fill="#8B4513" font-family="serif" font-size="12">Seven Wonders of the World</text>
+  <rect x="70" cy="550" width="20" height="10" fill="#E8D0AA" stroke="#8B4513" stroke-width="1" />
+  <text x="100" y="560" fill="#8B4513" font-family="serif" font-size="12">Continents</text>
+</svg>

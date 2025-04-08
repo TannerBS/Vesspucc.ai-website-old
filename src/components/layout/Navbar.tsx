@@ -111,11 +111,19 @@ const TokenButton = styled(Link)`
   border-radius: ${({ theme }) => theme.borderRadius.full};
   margin-left: ${({ theme }) => theme.spacing.md};
   font-weight: 600;
+  display: inline-block;
+  text-align: center;
   
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary};
     transform: translateY(-2px);
     box-shadow: ${({ theme }) => theme.boxShadow.sm};
+  }
+  
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    margin: ${({ theme }) => theme.spacing.sm} 0;
+    margin-left: 0;
+    width: 100%;
   }
 `;
 
@@ -188,6 +196,15 @@ const Navbar: React.FC = () => {
           >
             AI Agents
           </NavLink>
+
+          <TokenButton 
+            to="/map"
+            onClick={() => setIsOpen(false)}
+            style={{ marginRight: '10px' }}
+          >
+            Map Explorer
+          </TokenButton>
+          
           <TokenButton 
             to="/token"
             onClick={() => setIsOpen(false)}

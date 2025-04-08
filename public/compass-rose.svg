@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer circle -->
+  <circle cx="100" cy="100" r="95" fill="none" stroke="#8B4513" stroke-width="2" />
+  
+  <!-- Inner circle -->
+  <circle cx="100" cy="100" r="75" fill="none" stroke="#8B4513" stroke-width="1.5" />
+  <circle cx="100" cy="100" r="55" fill="none" stroke="#8B4513" stroke-width="1" />
+  
+  <!-- Main compass points -->
+  <line x1="100" y1="5" x2="100" y2="195" stroke="#8B4513" stroke-width="2" />
+  <line x1="5" y1="100" x2="195" y2="100" stroke="#8B4513" stroke-width="2" />
+  
+  <!-- Diagonal lines -->
+  <line x1="29.3" y1="29.3" x2="170.7" y2="170.7" stroke="#8B4513" stroke-width="1.5" />
+  <line x1="29.3" y1="170.7" x2="170.7" y2="29.3" stroke="#8B4513" stroke-width="1.5" />
+  
+  <!-- Cardinal direction labels -->
+  <text x="100" y="20" text-anchor="middle" fill="#8B4513" font-family="serif" font-weight="bold" font-size="16">N</text>
+  <text x="180" y="104" text-anchor="middle" fill="#8B4513" font-family="serif" font-weight="bold" font-size="16">E</text>
+  <text x="100" y="188" text-anchor="middle" fill="#8B4513" font-family="serif" font-weight="bold" font-size="16">S</text>
+  <text x="20" y="104" text-anchor="middle" fill="#8B4513" font-family="serif" font-weight="bold" font-size="16">W</text>
+  
+  <!-- Ordinal direction labels -->
+  <text x="150" y="50" text-anchor="middle" fill="#8B4513" font-family="serif" font-size="12">NE</text>
+  <text x="150" y="158" text-anchor="middle" fill="#8B4513" font-family="serif" font-size="12">SE</text>
+  <text x="50" y="158" text-anchor="middle" fill="#8B4513" font-family="serif" font-size="12">SW</text>
+  <text x="50" y="50" text-anchor="middle" fill="#8B4513" font-family="serif" font-size="12">NW</text>
+  
+  <!-- Decorative star points -->
+  <path d="M100,5 L105,25 L100,20 L95,25 Z" fill="#CFB53B" stroke="#8B4513" stroke-width="0.5" />
+  <path d="M195,100 L175,105 L180,100 L175,95 Z" fill="#CFB53B" stroke="#8B4513" stroke-width="0.5" />
+  <path d="M100,195 L95,175 L100,180 L105,175 Z" fill="#CFB53B" stroke="#8B4513" stroke-width="0.5" />
+  <path d="M5,100 L25,95 L20,100 L25,105 Z" fill="#CFB53B" stroke="#8B4513" stroke-width="0.5" />
+  
+  <!-- Center ornament -->
+  <circle cx="100" cy="100" r="15" fill="#F5E6D3" stroke="#8B4513" stroke-width="1" />
+  <circle cx="100" cy="100" r="5" fill="#CFB53B" stroke="#8B4513" stroke-width="0.5" />
+</svg>

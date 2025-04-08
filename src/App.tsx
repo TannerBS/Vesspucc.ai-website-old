@@ -10,6 +10,8 @@ import Agents from './pages/Agents'
 import TokenInfo from './pages/TokenInfo'
 import NotFound from './pages/NotFound'
 
+import Map from './pages/Map'
+
 // Components
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
@@ -25,6 +27,8 @@ const App: React.FC = () => {
             <Route path="/explore" element={<Explore />} />
             <Route path="/agents" element={<Agents />} />
             <Route path="/token" element={<TokenInfo />} />
+
+            <Route path="/map" element={<Map />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

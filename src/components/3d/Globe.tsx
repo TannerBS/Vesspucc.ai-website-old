@@ -11,7 +11,7 @@ const Globe: React.FC = () => {
   
   // Create optimized material
   const material = useMemo(() => new MeshStandardMaterial({
-    color: "#F5E6D3",
+    color: "#E6D0B1",
     metalness: 0.2,
     roughness: 0.8,
     // Add performance optimizations
