@@ -11,6 +11,9 @@ const MapContainer = styled.div`
   overflow: hidden;
   position: relative;
   background-color: #F5E6D3;
+  background-image: url('/vespucci-map.svg');
+  background-size: cover;
+  background-position: center;
 `;
 
 const MapSvg = styled.img`
@@ -212,8 +215,8 @@ const WorldMap2D: React.FC<WorldMap2DProps> = ({ onWonderSelect }) => {
       onMouseLeave={handleMouseUp}
     >
       <MapSvg 
-        src="/world-map.svg" 
-        alt="World Map" 
+        src="/vespucci-map.svg" 
+        alt="Amerigo Vespucci's Historical World Map" 
         style={{ 
           transform: `scale(${scale}) translate(${position.x / scale}px, ${position.y / scale}px)`,
           transformOrigin: 'center center'

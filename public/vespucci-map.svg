@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background with Vespucci map texture -->
+  <defs>
+    <pattern id="vespucci-map" patternUnits="userSpaceOnUse" width="1200" height="600">
+      <image href="https://hispanicsociety.org/wp-content/uploads/2020/09/4_vespucci_k42-min.jpg" width="1200" height="600" preserveAspectRatio="xMidYMid slice" />
+    </pattern>
+  </defs>
+  
+  <!-- Map Background with Vespucci's historical map -->
+  <rect width="1200" height="600" fill="url(#vespucci-map)" />
+  
+  <!-- Map Border with aged parchment look -->
+  <rect x="10" y="10" width="1180" height="580" fill="none" stroke="#8B4513" stroke-width="5" stroke-dasharray="5,3" />
+  
+  <!-- Overlay to enhance readability of markers -->
+  <rect width="1200" height="600" fill="rgba(245, 230, 211, 0.2)" />
+  
+  <!-- Title with historical font -->
+  <text x="600" y="40" text-anchor="middle" fill="#5D2E0C" font-family="'Cinzel', serif" font-weight="bold" font-size="28" stroke="#8B4513" stroke-width="0.5">Amerigo Vespucci's World Map</text>
+  <text x="600" y="65" text-anchor="middle" fill="#5D2E0C" font-family="'Cinzel', serif" font-style="italic" font-size="16">Circa 1500</text>
+  
+  <!-- Seven Wonders of the World (Modern) with antique styling -->
+  <!-- Great Wall of China -->
+  <circle cx="820" cy="220" r="8" fill="#CFB53B" stroke="#5D2E0C" stroke-width="2" opacity="0.9" />
+  <text x="820" y="205" text-anchor="middle" fill="#5D2E0C" font-family="'Cinzel', serif" font-size="12" font-weight="bold">Great Wall</text>
+  
+  <!-- Petra -->
+  <circle cx="620" cy="280" r="8" fill="#CFB53B" stroke="#5D2E0C" stroke-width="2" opacity="0.9" />
+  <text x="620" y="265" text-anchor="middle" fill="#5D2E0C" font-family="'Cinzel', serif" font-size="12" font-weight="bold">Petra</text>
+  
+  <!-- Christ the Redeemer -->
+  <circle cx="350" cy="450" r="8" fill="#CFB53B" stroke="#5D2E0C" stroke-width="2" opacity="0.9" />
+  <text x="350" y="435" text-anchor="middle" fill="#5D2E0C" font-family="'Cinzel', serif" font-size="12" font-weight="bold">Christ the Redeemer</text>
+  
+  <!-- Machu Picchu -->
+  <circle cx="300" cy="450" r="8" fill="#CFB53B" stroke="#5D2E0C" stroke-width="2" opacity="0.9" />
+  <text x="300" y="435" text-anchor="middle" fill="#5D2E0C" font-family="'Cinzel', serif" font-size="12" font-weight="bold">Machu Picchu</text>
+  
+  <!-- Chichen Itza -->
+  <circle cx="250" cy="300" r="8" fill="#CFB53B" stroke="#5D2E0C" stroke-width="2" opacity="0.9" />
+  <text x="250" y="285" text-anchor="middle" fill="#5D2E0C" font-family="'Cinzel', serif" font-size="12" font-weight="bold">Chichen Itza</text>
+  
+  <!-- Colosseum -->
+  <circle cx="580" cy="230" r="8" fill="#CFB53B" stroke="#5D2E0C" stroke-width="2" opacity="0.9" />
+  <text x="580" y="215" text-anchor="middle" fill="#5D2E0C" font-family="'Cinzel', serif" font-size="12" font-weight="bold">Colosseum</text>
+  
+  <!-- Taj Mahal -->
+  <circle cx="730" cy="280" r="8" fill="#CFB53B" stroke="#5D2E0C" stroke-width="2" opacity="0.9" />
+  <text x="730" y="265" text-anchor="middle" fill="#5D2E0C" font-family="'Cinzel', serif" font-size="12" font-weight="bold">Taj Mahal</text>
+  
+  <!-- Decorative Elements - Aged Compass Rose -->
+  <g transform="translate(1050, 500)">
+    <circle cx="0" cy="0" r="40" fill="rgba(245, 230, 211, 0.7)" stroke="#5D2E0C" stroke-width="2" />
+    <circle cx="0" cy="0" r="30" fill="none" stroke="#5D2E0C" stroke-width="1" />
+    <line x1="0" y1="-40" x2="0" y2="40" stroke="#5D2E0C" stroke-width="2" />
+    <line x1="-40" y1="0" x2="40" y2="0" stroke="#5D2E0C" stroke-width="2" />
+    <text x="0" y="-45" text-anchor="middle" fill="#5D2E0C" font-family="'Cinzel', serif" font-size="12" font-weight="bold">N</text>
+    <text x="45" y="0" text-anchor="middle" fill="#5D2E0C" font-family="'Cinzel', serif" font-size="12" font-weight="bold">E</text>
+    <text x="0" y="55" text-anchor="middle" fill="#5D2E0C" font-family="'Cinzel', serif" font-size="12" font-weight="bold">S</text>
+    <text x="-45" y="0" text-anchor="middle" fill="#5D2E0C" font-family="'Cinzel', serif" font-size="12" font-weight="bold">W</text>
+  </g>
+  
+  <!-- Legend with aged parchment styling -->
+  <rect x="50" y="520" width="220" height="60" fill="rgba(245, 230, 211, 0.7)" stroke="#5D2E0C" stroke-width="1" />
+  <circle cx="70" cy="535" r="6" fill="#CFB53B" stroke="#5D2E0C" stroke-width="1" />
+  <text x="85" y="540" fill="#5D2E0C" font-family="'Cinzel', serif" font-size="12" font-weight="bold">Seven Wonders of the World</text>
+  <text x="70" y="560" fill="#5D2E0C" font-family="'Cinzel', serif" font-size="12" font-style="italic">Map by Amerigo Vespucci, c. 1500</text>
+</svg>
