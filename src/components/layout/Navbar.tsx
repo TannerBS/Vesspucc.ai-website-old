@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Theme } from '../../styles/theme'
 
 interface NavbarContainerProps {
-  $scrolled: boolean;  // Changed from scrolled to $scrolled
+  $scrolled: boolean;
   theme?: Theme;
 }
 
@@ -16,12 +16,9 @@ const NavbarContainer = styled.header<NavbarContainerProps>`
   z-index: ${({ theme }) => theme.zIndex.header};
   padding: ${({ theme }) => theme.spacing.md};
   transition: background-color ${({ theme }) => theme.transitions.normal};
-  background-color: ${({ $scrolled, theme }) => 
-    $scrolled ? 'rgba(245, 230, 211, 0.9)' : 'transparent'};
-  backdrop-filter: ${({ $scrolled }) => 
-    $scrolled ? 'blur(10px)' : 'none'};
-  box-shadow: ${({ $scrolled, theme }) => 
-    $scrolled ? theme.boxShadow.sm : 'none'};
+  background-color: rgba(245, 230, 211, 0.9);
+  backdrop-filter: blur(10px);
+  box-shadow: ${({ theme }) => theme.boxShadow.sm};
 `;
 
 const NavContent = styled.div`
@@ -51,7 +48,7 @@ const LogoImg = styled.img`
 `;
 
 interface NavLinksProps {
-  $isOpen: boolean;  // Changed from isOpen to $isOpen
+  $isOpen: boolean;
   theme?: Theme;
 }
 
@@ -73,7 +70,7 @@ const NavLinks = styled.nav<NavLinksProps>`
 `;
 
 interface NavLinkProps {
-  $isActive: boolean;  // Changed from isActive to $isActive
+  $isActive: boolean;
   theme?: Theme;
 }
 

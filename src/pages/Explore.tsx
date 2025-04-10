@@ -3,20 +3,28 @@ import styled from 'styled-components'
 
 const ExploreContainer = styled.div`
   min-height: 100vh;
-  padding-top: 80px; // For navbar space
+  background-image: url('/src/assets/images/VespucciMap2.jpg');
+  background-size: cover;
+  background-position: top center;
+  background-attachment: fixed;
+  position: relative;
+  overflow: hidden;
 `;
 
-const ContentContainer = styled.div`
-  position: relative;
-  z-index: 1;
-  padding: ${({ theme }) => theme.spacing.xl};
+const ContentOverlay = styled.div`
+  min-height: 100vh;
+  background: linear-gradient(rgba(245, 230, 211, 0.3), ${({ theme }) => theme.colors.background});
+  padding-top: 150px; // For navbar space
+  padding-left: ${({ theme }) => theme.spacing.xl};
+  padding-right: ${({ theme }) => theme.spacing.xl};
+  padding-bottom: ${({ theme }) => theme.spacing.xl};
 `;
 
 const GlassPanel = styled.div`
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(10px);
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   padding: ${({ theme }) => theme.spacing.xl};
   margin-bottom: ${({ theme }) => theme.spacing.xl};
   box-shadow: ${({ theme }) => theme.boxShadow.lg};
@@ -35,11 +43,12 @@ const AgentGrid = styled.div`
 `;
 
 const AgentCard = styled.div`
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.2);
   border-radius: ${({ theme }) => theme.borderRadius.md};
   padding: ${({ theme }) => theme.spacing.lg};
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: ${({ theme }) => theme.colors.darkText || '#000'};
   
   &:hover {
     transform: translateY(-5px);
@@ -77,7 +86,7 @@ const Explore: React.FC = () => {
 
   return (
     <ExploreContainer>
-      <ContentContainer>
+      <ContentOverlay>
         <GlassPanel>
           <Title>Explore Vespucc.ai</Title>
           <p>Discover AI agents and tools available on our platform</p>
@@ -92,7 +101,7 @@ const Explore: React.FC = () => {
             ))}
           </AgentGrid>
         </GlassPanel>
-      </ContentContainer>
+      </ContentOverlay>
     </ExploreContainer>
   );
 };

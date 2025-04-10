@@ -5,7 +5,7 @@ import Features from '../components/home/Features'
 
 const HomeContainer = styled.div`
   min-height: 100vh;
-  background-image: url('https://hispanicsociety.org/wp-content/uploads/2020/09/4_vespucci_k42-min.jpg');
+  background-image: url('/src/assets/images/VespucciMap1.jpg');
   background-size: cover;
   background-position: top center;
   background-attachment: fixed;

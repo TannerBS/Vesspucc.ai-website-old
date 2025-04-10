@@ -11,6 +11,7 @@ export interface Theme {
     lightGray: string;
     error: string;
     success: string;
+    darkText: string;
   };
   fonts: {
     header: string;
@@ -70,6 +71,7 @@ export const theme: Theme = {
     lightGray: '#F5F5F5',
     error: '#FF0000',
     success: '#28A745',
+    darkText: '#333333', // Same as darkGray for consistency
   },
   fonts: {
     header: '"Spectral", serif',
