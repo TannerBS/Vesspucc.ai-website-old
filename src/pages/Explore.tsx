@@ -1,23 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import WorldMap2D from '../components/explore/WorldMap2D'
-import ExploreControls from '../components/explore/ExploreControls'
 
 const ExploreContainer = styled.div`
   min-height: 100vh;
   padding-top: 80px; // For navbar space
-`;
-
-const MapContainer = styled.div`
-  position: relative;
-  width: 100%;
-  height: 70vh;
-  margin: 0 auto;
-  border: 8px solid #8B4513;
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-  background-color: #F5E6D3;
 `;
 
 const ContentContainer = styled.div`
@@ -41,25 +27,70 @@ const Title = styled.h1`
   margin-bottom: ${({ theme }) => theme.spacing.lg};
 `;
 
-type LocationType = 'harbor' | 'island' | 'sea';
+const AgentGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: ${({ theme }) => theme.spacing.lg};
+  margin-top: ${({ theme }) => theme.spacing.xl};
+`;
+
+const AgentCard = styled.div`
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  padding: ${({ theme }) => theme.spacing.lg};
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: ${({ theme }) => theme.boxShadow.md};
+  }
+`;
+
+const LearnMoreButton = styled.button`
+  background-color: ${({ theme }) => theme.colors.accent};
+  color: ${({ theme }) => theme.colors.white};
+  padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.md}`};
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  margin-top: ${({ theme }) => theme.spacing.md};
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primary};
+    transform: translateY(-2px);
+    box-shadow: ${({ theme }) => theme.boxShadow.sm};
+  }
+`;
 
 const Explore: React.FC = () => {
-  const [currentLocation, setCurrentLocation] = useState<LocationType>('harbor');
+  // Sample agent data
+  const agents = [
+    { id: 1, name: 'Web Navigator', description: 'Browse and analyze web content' },
+    { id: 2, name: 'Data Analyst', description: 'Process and visualize complex datasets' },
+    { id: 3, name: 'Content Creator', description: 'Generate articles, images, and more' },
+    { id: 4, name: 'Research Assistant', description: 'Find and summarize information' },
+  ];
 
   return (
     <ExploreContainer>
-      <MapContainer>
-        <WorldMap2D />
-      </MapContainer>
-      
       <ContentContainer>
         <GlassPanel>
-          <Title>Explore the Digital Frontier</Title>
-          <p>Navigate through our interactive map to discover AI agents and digital treasures.</p>
-          <ExploreControls 
-            currentLocation={currentLocation} 
-            setCurrentLocation={setCurrentLocation} 
-          />
+          <Title>Explore Vespucc.ai</Title>
+          <p>Discover AI agents and tools available on our platform</p>
+          
+          <AgentGrid>
+            {agents.map(agent => (
+              <AgentCard key={agent.id}>
+                <h3>{agent.name}</h3>
+                <p>{agent.description}</p>
+                <LearnMoreButton>Learn More</LearnMoreButton>
+              </AgentCard>
+            ))}
+          </AgentGrid>
         </GlassPanel>
       </ContentContainer>
     </ExploreContainer>
