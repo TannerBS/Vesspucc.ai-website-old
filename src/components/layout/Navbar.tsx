@@ -196,14 +196,6 @@ const Navbar: React.FC = () => {
           >
             AI Agents
           </NavLink>
-
-          <TokenButton 
-            to="/map"
-            onClick={() => setIsOpen(false)}
-            style={{ marginRight: '10px' }}
-          >
-            Map Explorer
-          </TokenButton>
           
           <TokenButton 
             to="/token"

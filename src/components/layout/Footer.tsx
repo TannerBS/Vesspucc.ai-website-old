@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import WhitePaperModal from '../common/WhitePaperModal';
 
 const FooterContainer = styled.footer`
   background-color: ${({ theme }) => theme.colors.primary};
@@ -38,6 +39,22 @@ const FooterLink = styled(Link)`
   }
 `;
 
+const DocButton = styled.button`
+  background: none;
+  border: none;
+  color: ${({ theme }) => theme.colors.background};
+  margin-bottom: ${({ theme }) => theme.spacing.sm};
+  text-align: left;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0;
+  cursor: pointer;
+  
+  &:hover {
+    color: ${({ theme }) => theme.colors.accent};
+  }
+`;
+
 const SocialLinks = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing.md};
@@ -63,6 +80,16 @@ const Copyright = styled.div`
 `;
 
 const Footer: React.FC = () => {
+  const [isWhitePaperOpen, setIsWhitePaperOpen] = useState(false);
+
+  const openWhitePaper = () => {
+    setIsWhitePaperOpen(true);
+  };
+
+  const closeWhitePaper = () => {
+    setIsWhitePaperOpen(false);
+  };
+
   return (
     <FooterContainer>
       <FooterContent>
@@ -92,10 +119,9 @@ const Footer: React.FC = () => {
         
         <FooterSection>
           <FooterTitle>Resources</FooterTitle>
-          <FooterLink to="/docs">Documentation</FooterLink>
           <FooterLink to="/faq">FAQ</FooterLink>
+          <DocButton onClick={openWhitePaper}>Documentation</DocButton>
           <FooterLink to="/tutorials">Tutorials</FooterLink>
-          <FooterLink to="/blog">Blog</FooterLink>
         </FooterSection>
         
         <FooterSection>
@@ -109,6 +135,9 @@ const Footer: React.FC = () => {
       <Copyright>
         &copy; {new Date().getFullYear()} Vespucc.ai. All rights reserved.
       </Copyright>
+      
+      {/* Add the WhitePaper Modal */}
+      <WhitePaperModal isOpen={isWhitePaperOpen} onClose={closeWhitePaper} />
     </FooterContainer>
   );
 };
