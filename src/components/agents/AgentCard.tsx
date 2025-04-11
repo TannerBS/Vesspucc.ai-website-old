@@ -7,7 +7,7 @@ interface AgentCardProps {
 }
 
 const Card = styled.div`
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.9);
   border-radius: ${({ theme }) => theme.borderRadius.md};
   padding: ${({ theme }) => theme.spacing.lg};
   box-shadow: ${({ theme }) => theme.boxShadow.md};
