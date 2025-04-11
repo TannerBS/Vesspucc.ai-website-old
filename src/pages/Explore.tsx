@@ -1,35 +1,31 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
-import MapExplorer from '../components/explore/MapExplorer'
-import ExploreControls from '../components/explore/ExploreControls'
+import ChatBot from '../components/explore/ChatBot'
 
 const ExploreContainer = styled.div`
   min-height: 100vh;
-  padding-top: 80px; // For navbar space
-`;
-
-const CanvasContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: -1;
-`;
-
-const ContentContainer = styled.div`
+  background-image: url('/src/assets/images/VespucciMap2.jpg');
+  background-size: cover;
+  background-position: top center;
+  background-attachment: fixed;
   position: relative;
-  z-index: 1;
-  padding: ${({ theme }) => theme.spacing.xl};
+  overflow: hidden;
+`;
+
+const ContentOverlay = styled.div`
+  min-height: 100vh;
+  background: linear-gradient(rgba(245, 230, 211, 0.3), ${({ theme }) => theme.colors.background});
+  padding-top: 150px; // For navbar space
+  padding-left: ${({ theme }) => theme.spacing.xl};
+  padding-right: ${({ theme }) => theme.spacing.xl};
+  padding-bottom: ${({ theme }) => theme.spacing.xl};
 `;
 
 const GlassPanel = styled.div`
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(10px);
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   padding: ${({ theme }) => theme.spacing.xl};
   margin-bottom: ${({ theme }) => theme.spacing.xl};
   box-shadow: ${({ theme }) => theme.boxShadow.lg};
@@ -40,32 +36,16 @@ const Title = styled.h1`
   margin-bottom: ${({ theme }) => theme.spacing.lg};
 `;
 
-type LocationType = 'harbor' | 'island' | 'sea';
-
 const Explore: React.FC = () => {
-  const [currentLocation, setCurrentLocation] = useState<LocationType>('harbor');
-
   return (
     <ExploreContainer>
-      <CanvasContainer>
-        <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-          <ambientLight intensity={0.5} />
-          <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-          <MapExplorer location={currentLocation} />
-          <OrbitControls enableZoom={true} enablePan={true} />
-        </Canvas>
-      </CanvasContainer>
-      
-      <ContentContainer>
+      <ContentOverlay>
         <GlassPanel>
-          <Title>Explore the Digital Frontier</Title>
-          <p>Navigate through our 3D map to discover AI agents and digital treasures.</p>
-          <ExploreControls 
-            currentLocation={currentLocation} 
-            setCurrentLocation={setCurrentLocation} 
-          />
+          <Title>Chat with Vespucc.ai</Title>
+          <p>Interact with Vespucc.ai to explore the platform</p>
+          <ChatBot />
         </GlassPanel>
-      </ContentContainer>
+      </ContentOverlay>
     </ExploreContainer>
   );
 };

@@ -13,7 +13,9 @@ const SectionTitle = styled.h2`
 `;
 
 const UsageGridContainer = styled.div`
-  overflow-x: auto;
+  overflow: visible;
+  padding-top: ${({ theme }) => theme.spacing.md};
+  padding-bottom: ${({ theme }) => theme.spacing.md};
 `;
 
 const UsageGrid = styled.div`
@@ -31,7 +33,10 @@ const UsageCard = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.md};
   padding: ${({ theme }) => theme.spacing.lg};
   box-shadow: ${({ theme }) => theme.boxShadow.sm};
-  transition: transform ${({ theme }) => theme.transitions.normal};
+  transition: transform ${({ theme }) => theme.transitions.normal},
+              box-shadow ${({ theme }) => theme.transitions.normal};
+  margin-top: 3px; /* Add space to prevent cut-off on transform */
+  margin-bottom: 3px; /* Add space to prevent cut-off on transform */
   
   &:hover {
     transform: translateY(-3px);

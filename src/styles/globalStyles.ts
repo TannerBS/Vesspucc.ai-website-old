@@ -10,6 +10,7 @@ const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    cursor: url('/src/assets/cursors/feather-icon.svg'), auto;
   }
 
   html, body {
@@ -74,7 +75,7 @@ const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
   }
 
   button {
-    cursor: pointer;
+    /* Removed cursor: pointer to maintain the feather cursor */
     font-family: ${({ theme }) => theme.fonts.body};
     transition: all ${({ theme }) => theme.transitions.fast};
   }

@@ -39,7 +39,7 @@ const HomeButton = styled(Link)`
   padding: ${({ theme }) => `${theme.spacing.md} ${theme.spacing.lg}`};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   border: none;
-  cursor: pointer;
+  /* Removed cursor: pointer to maintain the feather cursor */
   transition: all ${({ theme }) => theme.transitions.normal};
   
   &:hover {

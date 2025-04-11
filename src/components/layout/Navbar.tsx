@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Theme } from '../../styles/theme'
 
 interface NavbarContainerProps {
-  scrolled: boolean;
+  $scrolled: boolean;
   theme?: Theme;
 }
 
@@ -16,12 +16,9 @@ const NavbarContainer = styled.header<NavbarContainerProps>`
   z-index: ${({ theme }) => theme.zIndex.header};
   padding: ${({ theme }) => theme.spacing.md};
   transition: background-color ${({ theme }) => theme.transitions.normal};
-  background-color: ${({ scrolled, theme }) => 
-    scrolled ? 'rgba(245, 230, 211, 0.9)' : 'transparent'};
-  backdrop-filter: ${({ scrolled }) => 
-    scrolled ? 'blur(10px)' : 'none'};
-  box-shadow: ${({ scrolled, theme }) => 
-    scrolled ? theme.boxShadow.sm : 'none'};
+  background-color: rgba(245, 230, 211, 0.9);
+  backdrop-filter: blur(10px);
+  box-shadow: ${({ theme }) => theme.boxShadow.sm};
 `;
 
 const NavContent = styled.div`
@@ -51,7 +48,7 @@ const LogoImg = styled.img`
 `;
 
 interface NavLinksProps {
-  isOpen: boolean;
+  $isOpen: boolean;
   theme?: Theme;
 }
 
@@ -60,7 +57,7 @@ const NavLinks = styled.nav<NavLinksProps>`
   align-items: center;
   
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
+    display: ${({ $isOpen }) => ($isOpen ? 'flex' : 'none')};
     flex-direction: column;
     position: absolute;
     top: 100%;
@@ -73,15 +70,15 @@ const NavLinks = styled.nav<NavLinksProps>`
 `;
 
 interface NavLinkProps {
-  isActive: boolean;
+  $isActive: boolean;
   theme?: Theme;
 }
 
 const NavLink = styled(Link)<NavLinkProps>`
   margin: 0 ${({ theme }) => theme.spacing.md};
-  color: ${({ isActive, theme }) => 
-    isActive ? theme.colors.accent : theme.colors.secondary};
-  font-weight: ${({ isActive }) => (isActive ? '600' : '400')};
+  color: ${({ $isActive, theme }) => 
+    $isActive ? theme.colors.accent : theme.colors.secondary};
+  font-weight: ${({ $isActive }) => ($isActive ? '600' : '400')};
   position: relative;
   
   &::after {
@@ -89,7 +86,7 @@ const NavLink = styled(Link)<NavLinkProps>`
     position: absolute;
     bottom: -4px;
     left: 0;
-    width: ${({ isActive }) => (isActive ? '100%' : '0')};
+    width: ${({ $isActive }) => ($isActive ? '100%' : '0')};
     height: 2px;
     background-color: ${({ theme }) => theme.colors.accent};
     transition: width ${({ theme }) => theme.transitions.normal};
@@ -111,11 +108,19 @@ const TokenButton = styled(Link)`
   border-radius: ${({ theme }) => theme.borderRadius.full};
   margin-left: ${({ theme }) => theme.spacing.md};
   font-weight: 600;
+  display: inline-block;
+  text-align: center;
   
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary};
     transform: translateY(-2px);
     box-shadow: ${({ theme }) => theme.boxShadow.sm};
+  }
+  
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    margin: ${({ theme }) => theme.spacing.sm} 0;
+    margin-left: 0;
+    width: 100%;
   }
 `;
 
@@ -125,7 +130,7 @@ const HamburgerButton = styled.button`
   border: none;
   font-size: 1.5rem;
   color: ${({ theme }) => theme.colors.primary};
-  cursor: pointer;
+  /* Removed cursor: pointer to maintain the feather cursor */
   
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     display: block;
@@ -155,7 +160,7 @@ const Navbar: React.FC = () => {
   }, []);
   
   return (
-    <NavbarContainer scrolled={scrolled}>
+    <NavbarContainer $scrolled={scrolled}>
       <NavContent>
         <Logo to="/">
           {/* <LogoImg src="/src/assets/images/logo.svg" alt="Vespucc.ai Logo" /> */}
@@ -166,28 +171,29 @@ const Navbar: React.FC = () => {
           ☰
         </HamburgerButton>
         
-        <NavLinks isOpen={isOpen}>
+        <NavLinks $isOpen={isOpen}>
           <NavLink 
             to="/" 
-            isActive={location.pathname === '/'}
+            $isActive={location.pathname === '/'}
             onClick={() => setIsOpen(false)}
           >
             Home
           </NavLink>
           <NavLink 
             to="/explore" 
-            isActive={location.pathname === '/explore'}
+            $isActive={location.pathname === '/explore'}
             onClick={() => setIsOpen(false)}
           >
             Explore
           </NavLink>
           <NavLink 
             to="/agents" 
-            isActive={location.pathname === '/agents'}
+            $isActive={location.pathname === '/agents'}
             onClick={() => setIsOpen(false)}
           >
             AI Agents
           </NavLink>
+          
           <TokenButton 
             to="/token"
             onClick={() => setIsOpen(false)}
