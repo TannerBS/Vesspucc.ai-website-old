@@ -48,7 +48,7 @@ const DocButton = styled.button`
   font-family: inherit;
   font-size: inherit;
   padding: 0;
-  cursor: pointer;
+  /* Removed cursor: pointer to maintain the feather cursor */
   
   &:hover {
     color: ${({ theme }) => theme.colors.accent};

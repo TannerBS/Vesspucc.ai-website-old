@@ -130,7 +130,7 @@ const HamburgerButton = styled.button`
   border: none;
   font-size: 1.5rem;
   color: ${({ theme }) => theme.colors.primary};
-  cursor: pointer;
+  /* Removed cursor: pointer to maintain the feather cursor */
   
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     display: block;

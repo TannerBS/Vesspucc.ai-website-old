@@ -53,7 +53,7 @@ const CloseButton = styled.button`
   border: none;
   font-size: 1.5rem;
   color: ${({ theme }) => theme.colors.primary};
-  cursor: pointer;
+  /* Removed cursor: pointer to maintain the feather cursor */
   
   &:hover {
     color: ${({ theme }) => theme.colors.accent};

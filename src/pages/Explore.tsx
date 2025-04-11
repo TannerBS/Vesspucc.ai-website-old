@@ -42,7 +42,7 @@ const Explore: React.FC = () => {
       <ContentOverlay>
         <GlassPanel>
           <Title>Chat with Vespucc.ai</Title>
-          <p>Interact with our AI assistant to explore the platform</p>
+          <p>Interact with Vespucc.ai to explore the platform</p>
           <ChatBot />
         </GlassPanel>
       </ContentOverlay>
