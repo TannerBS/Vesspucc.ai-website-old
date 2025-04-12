@@ -21,15 +21,14 @@ const ModalOverlay = styled.div<{ isOpen: boolean }>`
 `;
 
 const ModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   background: rgba(245, 230, 211, 0.95);
   border-radius: ${({ theme }) => theme.borderRadius.md};
   border: 2px solid ${({ theme }) => theme.colors.accent};
   padding: ${({ theme }) => theme.spacing.xl};
-  max-width: 800px;
-  width: 90%;
-  max-height: 80vh;
-  overflow-y: auto;
-  box-shadow: ${({ theme }) => theme.boxShadow.lg};
+  width: 99%;
+  height: 99%;
   position: relative;
 `;
 
@@ -53,19 +52,30 @@ const CloseButton = styled.button`
   border: none;
   font-size: 1.5rem;
   color: ${({ theme }) => theme.colors.primary};
-  /* Removed cursor: pointer to maintain the feather cursor */
-  
   &:hover {
     color: ${({ theme }) => theme.colors.accent};
   }
 `;
 
 const ModalContent = styled.div`
-  color: ${({ theme }) => theme.colors.secondary};
+  flex: 1;
+  overflow-y: auto;
+`;
+
+const PdfIframe = styled.iframe`
+  width: 100%;
+  height: 100%;
+  border: none;
+`;
+
+const DownloadLink = styled.a`
+  color: ${({ theme }) => theme.colors.primary};
+  text-decoration: none;
+  margin-left: auto;
+  margin-right: 20px;
 `;
 
 const WhitePaperModal: React.FC<WhitePaperModalProps> = ({ isOpen, onClose }) => {
-  // Close modal when clicking outside
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -77,11 +87,11 @@ const WhitePaperModal: React.FC<WhitePaperModalProps> = ({ isOpen, onClose }) =>
       <ModalContainer>
         <ModalHeader>
           <ModalTitle>White Paper</ModalTitle>
+          <DownloadLink href="/Whitepaper.pdf" download>Download PDF</DownloadLink>
           <CloseButton onClick={onClose}>×</CloseButton>
         </ModalHeader>
         <ModalContent>
-          {/* You can add your white paper content here later */}
-          <p>White paper content will be added here.</p>
+          <PdfIframe src="/Whitepaper.pdf" />
         </ModalContent>
       </ModalContainer>
     </ModalOverlay>

@@ -8,7 +8,6 @@ const TokenContainer = styled.div`
   min-height: 100vh;
   padding: ${({ theme }) => `${theme.spacing.xxl} ${theme.spacing.xl}`};
   padding-top: calc(80px + ${({ theme }) => theme.spacing.xxl}); // For navbar space
-  background-image: url('/src/assets/images/VespucciMap4.jpg');
   background-size: cover;
   background-position: top center;
   background-attachment: fixed;
@@ -60,13 +59,12 @@ const TokenCard = styled.div`
 const TokenInfo: React.FC = () => {
   return (
     <TokenContainer>
-      <TokenCard style={{ marginTop: '2rem', marginBottom: '2rem', marginRight: 'auto', marginLeft: 'auto', maxWidth: '72vw', position: 'relative', zIndex: 1 }}>
       <PageTitle>Vespucc.ai Tokens</PageTitle>
       <PageDescription>
         Our tokens power the Vespucc.ai ecosystem, giving you access to AI agents and exclusive features.
         Hold tokens to unlock capabilities, spend them to use advanced agent features.
       </PageDescription>
-      </TokenCard>
+      
       
       <TokenSections>
         <TokenCard>

@@ -7,7 +7,6 @@ const AgentsContainer = styled.div`
   min-height: 100vh;
   padding: ${({ theme }) => `${theme.spacing.xxl} ${theme.spacing.xl}`};
   padding-top: calc(80px + ${({ theme }) => theme.spacing.xxl}); // For navbar space
-  background-image: url('/src/assets/images/SpanishMap.jpg');
   background-size: cover;
   background-position: top center;
   background-attachment: fixed;
