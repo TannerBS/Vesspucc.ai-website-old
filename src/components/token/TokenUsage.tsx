@@ -98,25 +98,25 @@ const TokenUsage = () => {
       title: 'Web Browsing',
       icon: '🌐',
       description: 'Use AI agents to browse the web and gather information from multiple sources.',
-      tokenCost: '5-10 tokens per session'
+      tokenCost: '? tokens per session'
     },
     {
       title: 'Data Analysis',
       icon: '📊',
       description: 'Process and analyze datasets to extract insights and visualizations.',
-      tokenCost: '15-25 tokens per dataset'
+      tokenCost: '? tokens per dataset'
     },
     {
       title: 'Content Creation',
       icon: '✍️',
       description: 'Generate articles, blog posts, and creative content tailored to your needs.',
-      tokenCost: '8-20 tokens per piece'
+      tokenCost: '? tokens per piece'
     },
     {
       title: 'Code Development',
       icon: '💻',
       description: 'Get help with writing, debugging, and optimizing code in various languages.',
-      tokenCost: '10-30 tokens per task'
+      tokenCost: '? tokens per task'
     }
   ];
   
@@ -125,12 +125,12 @@ const TokenUsage = () => {
     {
       tier: 'Basic',
       holdAmount: '100',
-      benefits: 'Access to basic AI agents, 3 tasks per day'
+      benefits: 'Access to basic AI agents, ? tasks per day'
     },
     {
       tier: 'Standard',
       holdAmount: '1,000',
-      benefits: 'Access to all agents, 10 tasks per day, priority processing'
+      benefits: 'Access to all agents, ? tasks per day, priority processing'
     },
     {
       tier: 'Premium',

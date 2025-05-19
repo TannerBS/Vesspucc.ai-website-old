@@ -1,18 +1,44 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useEffect, useRef } from 'react'
+import styled, { keyframes } from 'styled-components'
 import { Agent } from '../../pages/Agents'
 
 interface AgentCardProps {
   agent: Agent;
+  animationType?: 'left' | 'right' | 'up' | 'none';
+  index?: number;
 }
 
-const Card = styled.div`
+const slideInRight = keyframes`
+  from { opacity: 0; transform: translateX(100px); }
+  to { opacity: 1; transform: translateX(0); }
+`;
+
+const slideInLeft = keyframes`
+  from { opacity: 0; transform: translateX(-100px); }
+  to { opacity: 1; transform: translateX(0); }
+`;
+
+const slideInUp = keyframes`
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
+
+const Card = styled.div<{ animationType?: 'left' | 'right' | 'up' | 'none' }>`
   background: rgba(255, 255, 255, 0.9);
   border-radius: ${({ theme }) => theme.borderRadius.md};
   padding: ${({ theme }) => theme.spacing.lg};
   box-shadow: ${({ theme }) => theme.boxShadow.md};
   transition: transform ${({ theme }) => theme.transitions.normal}, 
               box-shadow ${({ theme }) => theme.transitions.normal};
+  opacity: 0;
+  
+  &.visible {
+    opacity: 1;
+    animation: ${({ animationType }) => 
+      animationType === 'right' ? slideInRight : 
+      animationType === 'left' ? slideInLeft : 
+      animationType === 'up' ? slideInUp : 'none'} 0.8s forwards;
+  }
   
   &:hover {
     transform: translateY(-5px);
@@ -65,9 +91,37 @@ const UseButton = styled.button`
   }
 `;
 
-const AgentCard: React.FC<AgentCardProps> = ({ agent }) => {
+const AgentCard: React.FC<AgentCardProps> = ({ agent, animationType = 'up', index = 0 }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Add a slight delay based on index for cascade effect
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, index * 100);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+    
+    return () => {
+      if (cardRef.current) {
+        observer.unobserve(cardRef.current);
+      }
+    };
+  }, [index]);
+  
   return (
-    <Card>
+    <Card ref={cardRef} animationType={animationType}>
       <AgentIcon>{agent.icon}</AgentIcon>
       <AgentName>{agent.name}</AgentName>
       <AgentDescription>{agent.description}</AgentDescription>

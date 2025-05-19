@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useEffect, useRef } from 'react'
+import styled, { keyframes } from 'styled-components'
 
 const FeaturesSection = styled.section`
   padding: ${({ theme }) => `${theme.spacing.xxl} 0`};
@@ -22,16 +22,34 @@ const FeaturesGrid = styled.div`
   padding: 0 ${({ theme }) => theme.spacing.md};
 `;
 
-const FeatureCard = styled.div`
+const slideInRight = keyframes`
+  from { opacity: 0; transform: translateX(100px); }
+  to { opacity: 1; transform: translateX(0); }
+`;
+
+const slideInLeft = keyframes`
+  from { opacity: 0; transform: translateX(-100px); }
+  to { opacity: 1; transform: translateX(0); }
+`;
+
+const FeatureCard = styled.div<{ animationType?: 'left' | 'right' | 'none' }>`
   background: rgba(255, 255, 255, 0.7);
   border-radius: ${({ theme }) => theme.borderRadius.md};
   padding: ${({ theme }) => theme.spacing.lg};
   box-shadow: ${({ theme }) => theme.boxShadow.md};
-  transition: transform ${({ theme }) => theme.transitions.normal};
+  transition: all ${({ theme }) => theme.transitions.normal};
+  opacity: 0;
   
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: ${({ theme }) => theme.boxShadow.lg};
+  &.visible {
+    opacity: 1;
+    animation: ${({ animationType }) => 
+      animationType === 'right' ? slideInRight : 
+      animationType === 'left' ? slideInLeft : 'none'} 0.8s forwards;
+  }
+  
+  &.visible:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: ${({ theme }) => theme.boxShadow.lg} !important;
   }
 `;
 
@@ -55,11 +73,39 @@ const FeatureDescription = styled.p`
 `;
 
 const Features: React.FC = () => {
+  const featureRefs = useRef<(HTMLDivElement | null)[]>([]);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    
+    featureRefs.current.forEach((card) => {
+      if (card) observer.observe(card);
+    });
+    
+    return () => {
+      featureRefs.current.forEach((card) => {
+        if (card) observer.unobserve(card);
+      });
+    };
+  }, []);
+  
   return (
     <FeaturesSection>
       <SectionTitle>Discover a New World</SectionTitle>
       <FeaturesGrid>
-        <FeatureCard>
+        <FeatureCard 
+          animationType="right"
+          ref={(el) => (featureRefs.current[0] = el)}
+        >
           <FeatureIcon>🤖</FeatureIcon>
           <FeatureTitle>AI Agents</FeatureTitle>
           <FeatureDescription>
@@ -67,7 +113,10 @@ const Features: React.FC = () => {
           </FeatureDescription>
         </FeatureCard>
         
-        <FeatureCard>
+        <FeatureCard
+          animationType="none"
+          ref={(el) => (featureRefs.current[1] = el)}
+        >
           <FeatureIcon>💰</FeatureIcon>
           <FeatureTitle>Crypto Payments</FeatureTitle>
           <FeatureDescription>
@@ -75,7 +124,10 @@ const Features: React.FC = () => {
           </FeatureDescription>
         </FeatureCard>
         
-        <FeatureCard>
+        <FeatureCard 
+          animationType="left"
+          ref={(el) => (featureRefs.current[2] = el)}
+        >
           <FeatureIcon>🌐</FeatureIcon>
           <FeatureTitle>3D Experience</FeatureTitle>
           <FeatureDescription>

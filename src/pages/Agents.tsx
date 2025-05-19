@@ -62,7 +62,7 @@ const mockAgents: Agent[] = [
     description: 'Browses the web and retrieves information from various sources.',
     icon: '🌐',
     category: 'research',
-    tokenCost: 5,
+    tokenCost: '-',
   },
   {
     id: 2,
@@ -70,7 +70,7 @@ const mockAgents: Agent[] = [
     description: 'Processes and analyzes complex datasets to extract insights.',
     icon: '📊',
     category: 'data',
-    tokenCost: 10,
+    tokenCost: '-',
   },
   {
     id: 3,
@@ -78,7 +78,7 @@ const mockAgents: Agent[] = [
     description: 'Generates articles, blog posts, and creative content.',
     icon: '✍️',
     category: 'creative',
-    tokenCost: 8,
+    tokenCost: '-',
   },
   {
     id: 4,
@@ -86,7 +86,7 @@ const mockAgents: Agent[] = [
     description: 'Helps write, debug, and optimize code in various languages.',
     icon: '💻',
     category: 'development',
-    tokenCost: 12,
+    tokenCost: '-',
   },
   {
     id: 5,
@@ -94,7 +94,7 @@ const mockAgents: Agent[] = [
     description: 'Tracks crypto markets and provides investment insights.',
     icon: '📈',
     category: 'finance',
-    tokenCost: 15,
+    tokenCost: '-',
   },
   {
     id: 6,
@@ -102,7 +102,7 @@ const mockAgents: Agent[] = [
     description: 'Creates personalized learning paths and educational materials.',
     icon: '🎓',
     category: 'education',
-    tokenCost: 7,
+    tokenCost: '-',
   },
 ];
 
@@ -126,9 +126,18 @@ const Agents: React.FC = () => {
       <AgentFilter filter={filter} setFilter={setFilter} />
       
       <AgentsGrid>
-        {filteredAgents.map(agent => (
-          <AgentCard key={agent.id} agent={agent} />
-        ))}
+        {filteredAgents.map((agent, index) => {
+          // Alternate animation directions for visual interest
+          const animationType = index % 3 === 0 ? 'right' : index % 3 === 1 ? 'up' : 'left';
+          return (
+            <AgentCard 
+              key={agent.id} 
+              agent={agent} 
+              animationType={animationType} 
+              index={index}
+            />
+          );
+        })}
       </AgentsGrid>
     </AgentsContainer>
   );

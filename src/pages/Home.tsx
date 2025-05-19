@@ -121,27 +121,11 @@ const Home: React.FC = () => {
   const sectionsRef = useRef<HTMLDivElement[]>([]);
   const [visiblePages, setVisiblePages] = useState<string[]>(['home']);
   
+  // Removed automatic page transition on scroll to keep pages separate
+  // Initial state only shows the home page
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.body.scrollHeight;
-      
-      // When user scrolls near the bottom, load the next page
-      if (scrollPosition + windowHeight > documentHeight - 200) {
-        if (visiblePages.length === 1 && visiblePages.includes('home')) {
-          setVisiblePages(['home', 'agents']);
-        } else if (visiblePages.length === 2 && visiblePages.includes('agents')) {
-          setVisiblePages(['home', 'agents', 'tokens']);
-        } else if (visiblePages.length === 3 && visiblePages.includes('tokens')) {
-          setVisiblePages(['home', 'agents', 'tokens', 'explore']);
-        }
-      }
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [visiblePages]);
+    // No scroll event listener needed as we're not auto-loading pages
+  }, []);
   
   useEffect(() => {
     const observer = new IntersectionObserver(
