@@ -4,7 +4,7 @@ import ChatBot from '../components/explore/ChatBot'
 
 const ExploreContainer = styled.div`
   min-height: 100vh;
-  background-image: url('/src/assets/images/VespucciMap2.jpg');
+  background-image: url('${import.meta.env.BASE_URL}VespucciMap2.jpg');
   background-size: cover;
   background-position: top center;
   background-attachment: fixed;
