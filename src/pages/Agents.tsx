@@ -51,7 +51,7 @@ export interface Agent {
   description: string;
   icon: string;
   category: string;
-  tokenCost: number;
+  tokenCost: number | string;
 }
 
 // Mock data for agents

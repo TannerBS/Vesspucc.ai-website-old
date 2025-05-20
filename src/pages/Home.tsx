@@ -119,7 +119,7 @@ const PageDivider = styled.div`
 
 const Home: React.FC = () => {
   const sectionsRef = useRef<HTMLDivElement[]>([]);
-  const [visiblePages, setVisiblePages] = useState<string[]>(['home']);
+  const [visiblePages, _] = useState<string[]>(['home']);
   
   // Removed automatic page transition on scroll to keep pages separate
   // Initial state only shows the home page

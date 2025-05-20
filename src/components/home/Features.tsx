@@ -104,7 +104,7 @@ const Features: React.FC = () => {
       <FeaturesGrid>
         <FeatureCard 
           animationType="right"
-          ref={(el) => (featureRefs.current[0] = el)}
+          ref={(el) => { featureRefs.current[0] = el; }}
         >
           <FeatureIcon>🤖</FeatureIcon>
           <FeatureTitle>AI Agents</FeatureTitle>
@@ -115,7 +115,7 @@ const Features: React.FC = () => {
         
         <FeatureCard
           animationType="none"
-          ref={(el) => (featureRefs.current[1] = el)}
+          ref={(el) => { featureRefs.current[1] = el; }}
         >
           <FeatureIcon>💰</FeatureIcon>
           <FeatureTitle>Crypto Payments</FeatureTitle>
@@ -126,7 +126,7 @@ const Features: React.FC = () => {
         
         <FeatureCard 
           animationType="left"
-          ref={(el) => (featureRefs.current[2] = el)}
+          ref={(el) => { featureRefs.current[2] = el; }}
         >
           <FeatureIcon>🌐</FeatureIcon>
           <FeatureTitle>3D Experience</FeatureTitle>
