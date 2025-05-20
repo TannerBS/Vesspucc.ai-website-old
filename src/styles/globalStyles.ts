@@ -10,7 +10,7 @@ const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    cursor: url('/src/assets/cursors/feather-icon.svg'), auto;
+    cursor: url('../assets/cursors/feather-icon.svg'), auto;
   }
 
   html, body {
