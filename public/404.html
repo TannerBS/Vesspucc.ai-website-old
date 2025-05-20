@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script type="text/javascript">
+    const baseSegment = "Vespucc.ai-Website"; // Your repository name
+    const l = window.location;
+    
+    let relativePath = l.pathname; 
+    const basePrefix = '/' + baseSegment;
+
+    // Extract the path relative to the baseSegment
+    // e.g., if l.pathname is /Vespucc.ai-Website/explore, relativePath becomes /explore
+    // e.g., if l.pathname is /Vespucc.ai-Website/, relativePath becomes /
+    if (relativePath.startsWith(basePrefix + '/')) {
+      relativePath = relativePath.substring(basePrefix.length); 
+      if (relativePath === '') { // Handles case like /Vespucc.ai-Website/
+        relativePath = '/';
+      }
+    } else if (relativePath === basePrefix) { // Handles case like /Vespucc.ai-Website (no trailing slash)
+      relativePath = '/';
+    }
+    // If not starting with basePrefix (e.g. custom domain, path is just /explore), 
+    // this logic assumes baseSegment might be empty or handled differently.
+    // For GitHub Pages with a repository sub-path, it should always start with basePrefix.
+
+    const search = l.search; // Original query string, e.g., ?param=1
+    const hash = l.hash;     // Original hash, e.g., #section
+
+    // Construct the redirect URL to index.html (located at /Vespucc.ai-Website/)
+    // Pass original relative path in 'p', original search query in 'q'
+    // The hash will be appended to the redirect URL and preserved by the browser.
+    let redirectUrl = basePrefix + '/?p=' + encodeURIComponent(relativePath);
+    if (search) {
+      // Remove leading '?' from search before encoding
+      redirectUrl += '&q=' + encodeURIComponent(search.substring(1));
+    }
+    redirectUrl += hash; // Append hash
+
+    // Perform the redirect
+    l.replace(redirectUrl);
+  </script>
+</head><body>
+  <p>If you are not redirected automatically, please <a href="/Vespucc.ai-Website/">click here</a> to go to the homepage.</p>
+  <!-- The following is to ensure the page is >512 bytes for IE compatibility -->
+  <span style="display:none">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span>
+</body>
+</html>

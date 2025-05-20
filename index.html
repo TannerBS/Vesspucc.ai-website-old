@@ -9,6 +9,29 @@
     <title>Vespucc.ai</title>
   </head>
   <body>
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages
+      // MIT License
+      // https://github.com/rafgraph/spa-github-pages
+      // This script checks if a redirect is needed for SPA routing
+      (function(l) {
+        const params = new URLSearchParams(l.search);
+        const p = params.get('p');
+        const q = params.get('q');
+        if (p) {
+          let newPath = p;
+          if (q) {
+            newPath += '?' + q; // Append original query string
+          }
+          // Preserve the hash if it exists
+          // The hash is not part of l.search, so it's appended directly from l.hash
+          window.history.replaceState(null, null, 
+            l.origin + l.pathname.slice(0, l.pathname.lastIndexOf('/') + 1) + newPath + l.hash
+          );
+        }
+      }(window.location))
+    </script>
+    <!-- End Single Page Apps for GitHub Pages -->
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
