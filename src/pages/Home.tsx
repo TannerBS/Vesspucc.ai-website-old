@@ -13,7 +13,7 @@ const fadeIn = keyframes`
 
 const HomeContainer = styled.div`
   min-height: 100vh;
-  background-image: url('/VespucciMap1.jpg');
+  background-image: url('./VespucciMap1.jpg');
   background-size: cover;
   background-position: top center;
   background-attachment: fixed;
