@@ -13,7 +13,8 @@ const fadeIn = keyframes`
 
 const HomeContainer = styled.div`
   min-height: 100vh;
-  background-image: url('./VespucciMap1.jpg');
+  /* Use a relative path from the public directory, prepended with the base URL */
+  background-image: url('${import.meta.env.BASE_URL}VespucciMap1.jpg');
   background-size: cover;
   background-position: top center;
   background-attachment: fixed;

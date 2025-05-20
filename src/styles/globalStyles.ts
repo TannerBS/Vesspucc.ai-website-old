@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import { Theme } from './theme';
+import featherCursor from '../assets/cursors/feather-icon.svg';
 
 // Font imports should be in the HTML or imported directly, not in styled-components template literals
 // These imports are moved to index.html
@@ -10,7 +11,7 @@ const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    cursor: url('../assets/cursors/feather-icon.svg'), auto;
+    cursor: url(${featherCursor}), auto;
   }
 
   html, body {
