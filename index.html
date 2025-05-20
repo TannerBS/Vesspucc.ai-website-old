@@ -16,20 +16,29 @@
       // This script checks if a redirect is needed for SPA routing
       (function(l) {
         const params = new URLSearchParams(l.search);
-        const p = params.get('p');
-        const q = params.get('q');
+        const p = params.get('p'); // Path segment, e.g., "explore" or "/explore"
+        const q = params.get('q'); // Query string, e.g., "param=value"
         if (p) {
-          let newPath = p;
-          if (q) {
-            newPath += '?' + q; // Append original query string
+          let pathSegment = p;
+          // Ensure pathSegment does not start with '/' if the base path already ends with '/'
+          if (pathSegment.startsWith('/')) {
+            pathSegment = pathSegment.substring(1);
           }
-          // Preserve the hash if it exists
-          // The hash is not part of l.search, so it's appended directly from l.hash
-          window.history.replaceState(null, null, 
-            l.origin + l.pathname.slice(0, l.pathname.lastIndexOf('/') + 1) + newPath + l.hash
+
+          let newPath = pathSegment;
+          if (q) {
+            newPath += '?' + q; // Append query string
+          }
+
+          // l.pathname is like "/Vespucc.ai-Website/index.html" or "/Vespucc.ai-Website/"
+          // We need the base part like "/Vespucc.ai-Website/"
+          const base = l.pathname.substring(0, l.pathname.lastIndexOf('/') + 1);
+
+          window.history.replaceState(null, null,
+            l.origin + base + newPath + l.hash
           );
         }
-      }(window.location))
+      }(window.location)); // Added semicolon for good practice
     </script>
     <!-- End Single Page Apps for GitHub Pages -->
     <div id="root"></div>
