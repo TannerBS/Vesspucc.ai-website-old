@@ -2,7 +2,7 @@
   "name": "website",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://steeleblockchaintechnology.github.io/Vespucci.ai-Website/",
+  "homepage": "https://steeleblockchaintechnology.github.io/Vespucc.ai-Website/",
   "type": "module",
   "scripts": {
     "dev": "vite",
