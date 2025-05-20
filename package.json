@@ -2,6 +2,7 @@
   "name": "website",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://steeleblockchaintechnology.github.io/Vespucc.ai-Website/",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +11,9 @@
     "preview": "vite preview",
     "build:server": "tsc -p tsconfig.server.json",
     "server": "nodemon --watch server -e ts --exec \"npm run build:server && node dist/server/index.js\"",
-    "dev:all": "concurrently \"npm run dev\" \"npm run server\""
+    "dev:all": "concurrently \"npm run dev\" \"npm run server\"",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.6",
