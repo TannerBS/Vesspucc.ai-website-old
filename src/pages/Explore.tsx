@@ -2,69 +2,29 @@ import React from 'react'
 import styled from 'styled-components'
 import ChatBot from '../components/explore/ChatBot'
 
-const ExploreContainer = styled.div`
-  min-height: 100vh;
+const ExplorePageContainer = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   background-image: url('${import.meta.env.BASE_URL}VespucciMap2.jpg');
   background-size: cover;
-  background-position: top center;
+  background-position: center; // Changed from top center
   background-attachment: fixed;
-  position: relative;
-  overflow: hidden; // Keep this to prevent horizontal scroll from background
-`;
-
-const ContentOverlay = styled.div`
-  min-height: 100vh;
-  background: linear-gradient(rgba(245, 230, 211, 0.3), ${({ theme }) => theme.colors.background});
-  padding-top: 100px; // Adjusted for navbar space
-  padding-left: ${({ theme }) => theme.spacing.md}; // Adjusted padding
-  padding-right: ${({ theme }) => theme.spacing.md}; // Adjusted padding
-  padding-bottom: ${({ theme }) => theme.spacing.md}; // Adjusted padding
+  overflow: hidden; // Prevent scrolling of the page itself
+  padding-top: 70px; // IMPORTANT: Adjust this to your actual Navbar height
+  box-sizing: border-box; // Ensures padding is included in the 100vh
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    padding-top: 150px;
-    padding-left: ${({ theme }) => theme.spacing.xl};
-    padding-right: ${({ theme }) => theme.spacing.xl};
-    padding-bottom: ${({ theme }) => theme.spacing.xl};
-  }
-`;
-
-const GlassPanel = styled.div`
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(10px);
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  padding: ${({ theme }) => theme.spacing.md}; // Adjusted padding
-  margin-bottom: ${({ theme }) => theme.spacing.lg}; // Adjusted margin
-  box-shadow: ${({ theme }) => theme.boxShadow.lg};
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    padding: ${({ theme }) => theme.spacing.xl};
-    margin-bottom: ${({ theme }) => theme.spacing.xl};
-  }
-`;
-
-const Title = styled.h1`
-  color: ${({ theme }) => theme.colors.primary};
-  margin-bottom: ${({ theme }) => theme.spacing.md}; // Adjusted margin
-  font-size: 1.8rem; // Adjusted font size
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    font-size: 2.2rem; // Original size for larger screens
-    margin-bottom: ${({ theme }) => theme.spacing.lg};
+    // Potentially adjust padding-top if navbar height changes on desktop
+    // padding-top: 80px; 
   }
 `;
 
 const Explore: React.FC = () => {
   return (
-    <ExploreContainer>
-      <ContentOverlay>
-        <GlassPanel>
-          <Title>Chat with Vespucc.ai</Title>
-          <p>Interact with Vespucc.ai to explore the platform</p>
-          <ChatBot />
-        </GlassPanel>
-      </ContentOverlay>
-    </ExploreContainer>
+    <ExplorePageContainer>
+      <ChatBot />
+    </ExplorePageContainer>
   );
 };
 
