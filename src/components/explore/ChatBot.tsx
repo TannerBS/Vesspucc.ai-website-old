@@ -128,7 +128,9 @@ const ChatBot: React.FC = () => {
 
   // Scroll to the bottom of messages when new messages are added
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (messages.length > 0) { // MODIFIED: Only scroll if there are messages
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
   }, [messages]);
 
   // Adjust scroll on input focus for mobile to keep input visible below header and above keyboard
@@ -141,17 +143,14 @@ const ChatBot: React.FC = () => {
         setTimeout(() => {
           if (inputElement) {
             // ESTIMATED height of the fixed site header in pixels.
-            // This value might need adjustment based on the actual site header\'s height.
-            const headerHeight = 70; 
-            const buffer = 10; // Small buffer below the header
+            const headerHeight = 100; // MODIFIED: Increased for more space
+            const buffer = 20;      // MODIFIED: Increased for more buffer
             const targetInputTopInViewport = headerHeight + buffer;
             
             const inputRect = inputElement.getBoundingClientRect();
             
-            // Calculate how much to scroll the page.
             const scrollDeltaY = inputRect.top - targetInputTopInViewport;
             
-            // Only scroll if the input is not already reasonably positioned
             if (Math.abs(scrollDeltaY) > 5) {
               window.scrollBy({
                 top: scrollDeltaY,
