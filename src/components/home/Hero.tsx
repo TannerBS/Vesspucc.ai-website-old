@@ -3,13 +3,18 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 const HeroSection = styled.section`
-  min-height: 90vh;
+  min-height: 80vh; // Adjusted min-height
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: ${({ theme }) => theme.spacing.xxl};
+  padding: ${({ theme }) => theme.spacing.lg}; // Adjusted padding
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    min-height: 90vh;
+    padding: ${({ theme }) => theme.spacing.xxl};
+  }
 `;
 
 const GlassCard = styled.div`
@@ -17,23 +22,39 @@ const GlassCard = styled.div`
   backdrop-filter: blur(10px);
   border-radius: ${({ theme }) => theme.borderRadius.md};
   border: 1px solid rgba(255, 255, 255, 0.18);
-  padding: ${({ theme }) => theme.spacing.xl};
+  padding: ${({ theme }) => theme.spacing.lg}; // Adjusted padding
   max-width: 800px;
+  width: 90%; // Ensure it doesn't exceed screen width
   margin: 0 auto;
   box-shadow: ${({ theme }) => theme.boxShadow.lg};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    padding: ${({ theme }) => theme.spacing.xl};
+    width: auto; // Reset width for larger screens
+  }
 `;
 
 const Title = styled.h1`
-  font-size: 3.5rem;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
+  font-size: 2.5rem; // Adjusted font size
+  margin-bottom: ${({ theme }) => theme.spacing.sm}; // Adjusted margin
   color: ${({ theme }) => theme.colors.primary};
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    font-size: 3.5rem;
+    margin-bottom: ${({ theme }) => theme.spacing.md};
+  }
 `;
 
 const Subtitle = styled.p`
-  font-size: 1.5rem;
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
+  font-size: 1.1rem; // Adjusted font size
+  margin-bottom: ${({ theme }) => theme.spacing.lg}; // Adjusted margin
   color: ${({ theme }) => theme.colors.secondary};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    font-size: 1.5rem;
+    margin-bottom: ${({ theme }) => theme.spacing.xl};
+  }
 `;
 
 const HeroButton = styled(Link)`
@@ -53,6 +74,12 @@ const HeroButton = styled(Link)`
     background-color: ${({ theme }) => theme.colors.secondary};
     transform: translateY(-3px);
     box-shadow: ${({ theme }) => theme.boxShadow.md};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.md}`};
+    font-size: 0.9rem;
+    margin: ${({ theme }) => theme.spacing.xs};
   }
 `;
 

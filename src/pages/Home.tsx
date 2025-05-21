@@ -23,13 +23,14 @@ const HomeContainer = styled.div`
 const ContentOverlay = styled.div`
   min-height: 100vh;
   background: linear-gradient(rgba(245, 230, 211, 0.3), ${({ theme }) => theme.colors.background});
-  padding-top: 80px;
+  padding-top: 80px; // Navbar height
+  // Add overflow-x: hidden here if content inside tends to overflow horizontally
 `;
 
 const Section = styled.section`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: 2rem 1rem; // Adjusted padding for smaller screens
   animation: ${fadeIn} 0.8s ease-out forwards;
   opacity: 0;
   
@@ -40,12 +41,16 @@ const Section = styled.section`
   &:nth-child(3) {
     animation-delay: 0.4s;
   }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    padding: 4rem 2rem; // Original padding for larger screens
+  }
 `;
 
 const CallToAction = styled.div`
   text-align: center;
-  margin: 4rem 0;
-  padding: 4rem;
+  margin: 2rem 0; // Adjusted margin
+  padding: 2rem 1rem; // Adjusted padding
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border-radius: ${({ theme }) => theme.borderRadius.lg};
@@ -57,47 +62,50 @@ const CallToAction = styled.div`
     transform: translateY(-5px);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
   }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    margin: 4rem 0;
+    padding: 4rem;
+  }
 `;
 
 const CTATitle = styled.h2`
-  font-size: 2.8rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
   color: ${({ theme }) => theme.colors.primary};
-  font-weight: 700;
-  letter-spacing: -0.5px;
+  margin-bottom: ${({ theme }) => theme.spacing.md};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    font-size: 2.2rem; 
+  }
 `;
 
 const CTAText = styled.p`
-  font-size: 1.2rem;
-  max-width: 600px;
-  margin: 0 auto 2rem;
-  line-height: 1.6;
+  font-size: 1rem;
   color: ${({ theme }) => theme.colors.secondary};
+  margin-bottom: ${({ theme }) => theme.spacing.lg};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    font-size: 1.2rem;
+  }
 `;
 
-const CTAButton = styled.a`
-  background-color: ${({ theme }) => theme.colors.accent};
-  color: ${({ theme }) => theme.colors.white};
-  padding: 1.2rem 2.5rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.full};
-  cursor: pointer;
-  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+const CTAButton = styled.a` // Assuming it's an anchor, adjust if it's a button or Link
   display: inline-block;
+  padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.lg}`};
+  font-size: 1rem;
+  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.accent};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   text-decoration: none;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  
+  transition: background-color 0.3s ease;
+
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary};
-    transform: translateY(-3px);
-    color: ${({ theme }) => theme.colors.white};
-    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.2);
   }
-  
-  &:active {
-    transform: translateY(-1px);
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    padding: ${({ theme }) => `${theme.spacing.md} ${theme.spacing.xl}`};
+    font-size: 1.1rem;
   }
 `;
 

@@ -6,8 +6,13 @@ import WhitePaperModal from '../common/WhitePaperModal';
 const FooterContainer = styled.footer`
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.background};
-  padding: ${({ theme }) => `${theme.spacing.xl} 0`};
-  margin-top: ${({ theme }) => theme.spacing.xxl};
+  padding: ${({ theme }) => `${theme.spacing.lg} 0`}; // Adjusted padding
+  margin-top: ${({ theme }) => theme.spacing.xl}; // Adjusted margin
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    padding: ${({ theme }) => `${theme.spacing.xl} 0`};
+    margin-top: ${({ theme }) => theme.spacing.xxl};
+  }
 `;
 
 const FooterContent = styled.div`
@@ -15,27 +20,51 @@ const FooterContent = styled.div`
   margin: 0 auto;
   padding: 0 ${({ theme }) => theme.spacing.md};
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: ${({ theme }) => theme.spacing.xl};
+  grid-template-columns: 1fr; // Single column for mobile
+  gap: ${({ theme }) => theme.spacing.lg}; // Adjusted gap
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); // Adjust minmax and breakpoint
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    gap: ${({ theme }) => theme.spacing.xl};
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); // Original for larger
+  }
 `;
 
 const FooterSection = styled.div`
   display: flex;
   flex-direction: column;
+  // text-align: center; // Center text for mobile if desired
+  // @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
+  //   text-align: left; // Revert for larger screens
+  // }
 `;
 
 const FooterTitle = styled.h3`
-  font-size: 1.25rem;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
+  font-size: 1.1rem; // Adjusted font size
+  margin-bottom: ${({ theme }) => theme.spacing.sm}; // Adjusted margin
   color: ${({ theme }) => theme.colors.accent};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    font-size: 1.25rem;
+    margin-bottom: ${({ theme }) => theme.spacing.md};
+  }
 `;
 
 const FooterLink = styled(Link)`
   color: ${({ theme }) => theme.colors.background};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
+  margin-bottom: ${({ theme }) => theme.spacing.xs}; // Adjusted margin
+  font-size: 0.9rem; // Adjusted font size
   
   &:hover {
     color: ${({ theme }) => theme.colors.accent};
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    font-size: 1rem; // Reset to original or adjust as needed
+    margin-bottom: ${({ theme }) => theme.spacing.sm};
   }
 `;
 
@@ -43,15 +72,20 @@ const DocButton = styled.button`
   background: none;
   border: none;
   color: ${({ theme }) => theme.colors.background};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
+  margin-bottom: ${({ theme }) => theme.spacing.xs}; // Adjusted margin
   text-align: left;
   font-family: inherit;
-  font-size: inherit;
+  font-size: 0.9rem; // Adjusted font size
   padding: 0;
   /* Removed cursor: pointer to maintain the feather cursor */
   
   &:hover {
     color: ${({ theme }) => theme.colors.accent};
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    font-size: 1rem; // Reset to original or adjust as needed
+    margin-bottom: ${({ theme }) => theme.spacing.sm};
   }
 `;
 

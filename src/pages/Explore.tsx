@@ -9,16 +9,23 @@ const ExploreContainer = styled.div`
   background-position: top center;
   background-attachment: fixed;
   position: relative;
-  overflow: hidden;
+  overflow: hidden; // Keep this to prevent horizontal scroll from background
 `;
 
 const ContentOverlay = styled.div`
   min-height: 100vh;
   background: linear-gradient(rgba(245, 230, 211, 0.3), ${({ theme }) => theme.colors.background});
-  padding-top: 150px; // For navbar space
-  padding-left: ${({ theme }) => theme.spacing.xl};
-  padding-right: ${({ theme }) => theme.spacing.xl};
-  padding-bottom: ${({ theme }) => theme.spacing.xl};
+  padding-top: 100px; // Adjusted for navbar space
+  padding-left: ${({ theme }) => theme.spacing.md}; // Adjusted padding
+  padding-right: ${({ theme }) => theme.spacing.md}; // Adjusted padding
+  padding-bottom: ${({ theme }) => theme.spacing.md}; // Adjusted padding
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    padding-top: 150px;
+    padding-left: ${({ theme }) => theme.spacing.xl};
+    padding-right: ${({ theme }) => theme.spacing.xl};
+    padding-bottom: ${({ theme }) => theme.spacing.xl};
+  }
 `;
 
 const GlassPanel = styled.div`
@@ -26,14 +33,25 @@ const GlassPanel = styled.div`
   backdrop-filter: blur(10px);
   border-radius: ${({ theme }) => theme.borderRadius.md};
   border: 1px solid rgba(255, 255, 255, 0.25);
-  padding: ${({ theme }) => theme.spacing.xl};
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
+  padding: ${({ theme }) => theme.spacing.md}; // Adjusted padding
+  margin-bottom: ${({ theme }) => theme.spacing.lg}; // Adjusted margin
   box-shadow: ${({ theme }) => theme.boxShadow.lg};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    padding: ${({ theme }) => theme.spacing.xl};
+    margin-bottom: ${({ theme }) => theme.spacing.xl};
+  }
 `;
 
 const Title = styled.h1`
   color: ${({ theme }) => theme.colors.primary};
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
+  margin-bottom: ${({ theme }) => theme.spacing.md}; // Adjusted margin
+  font-size: 1.8rem; // Adjusted font size
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    font-size: 2.2rem; // Original size for larger screens
+    margin-bottom: ${({ theme }) => theme.spacing.lg};
+  }
 `;
 
 const Explore: React.FC = () => {

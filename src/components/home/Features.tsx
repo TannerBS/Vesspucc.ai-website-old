@@ -2,24 +2,43 @@ import React, { useEffect, useRef } from 'react'
 import styled, { keyframes } from 'styled-components'
 
 const FeaturesSection = styled.section`
-  padding: ${({ theme }) => `${theme.spacing.xxl} 0`};
+  padding: ${({ theme }) => `${theme.spacing.xl} 0`}; // Adjusted padding
   background-color: rgba(255, 255, 255, 0.3);
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    padding: ${({ theme }) => `${theme.spacing.xxl} 0`};
+  }
 `;
 
 const SectionTitle = styled.h2`
   text-align: center;
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
-  font-size: 2.5rem;
+  margin-bottom: ${({ theme }) => theme.spacing.lg}; // Adjusted margin
+  font-size: 2rem; // Adjusted font size
   color: ${({ theme }) => theme.colors.primary};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    font-size: 2.5rem;
+    margin-bottom: ${({ theme }) => theme.spacing.xl};
+  }
 `;
 
 const FeaturesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: ${({ theme }) => theme.spacing.xl};
+  grid-template-columns: 1fr; // Single column for smallest screens
+  gap: ${({ theme }) => theme.spacing.lg}; // Adjusted gap
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 ${({ theme }) => theme.spacing.md};
+
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.sm}) { // Start two columns earlier if desired
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); // Adjusted minmax
+  }
+  
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    gap: ${({ theme }) => theme.spacing.xl};
+    padding: 0 ${({ theme }) => theme.spacing.md}; // Keep md padding or adjust if needed
+  }
 `;
 
 const slideInRight = keyframes`
