@@ -1,26 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import ChatBot from '../components/explore/ChatBot'
 
 const ExplorePageContainer = styled.div`
-  height: 100vh;
+  position: fixed; // Changed from relative/default to fixed
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; // Use 100vh for full viewport height
   display: flex;
   flex-direction: column;
   background-image: url('${import.meta.env.BASE_URL}VespucciMap2.jpg');
   background-size: cover;
-  background-position: center; // Changed from top center
+  background-position: center;
   background-attachment: fixed;
-  overflow: hidden; // Prevent scrolling of the page itself
+  overflow: hidden; // This should prevent scrolling of the page itself
   padding-top: 70px; // IMPORTANT: Adjust this to your actual Navbar height
-  box-sizing: border-box; // Ensures padding is included in the 100vh
+  box-sizing: border-box;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    // Potentially adjust padding-top if navbar height changes on desktop
-    // padding-top: 80px; 
+    // padding-top: 80px; // Adjust if navbar height is different on desktop
   }
 `;
 
 const Explore: React.FC = () => {
+  // Optional: Add a class to body to prevent scrolling when this page is active
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'auto'; // Reset on component unmount
+    };
+  }, []);
+
   return (
     <ExplorePageContainer>
       <ChatBot />
