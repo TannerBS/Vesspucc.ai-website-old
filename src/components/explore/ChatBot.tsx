@@ -74,6 +74,7 @@ const InputContainer = styled.div`
 
 const InputField = styled.input`
   flex: 1;
+  min-width: 0; // Allows the input to shrink below its content size if necessary
   padding: ${({ theme }) => theme.spacing.md};
   border: 1px solid ${({ theme }) => `${theme.colors.secondary}50`};
   border-radius: ${({ theme }) => theme.borderRadius.md};
@@ -88,7 +89,8 @@ const InputField = styled.input`
 `;
 
 const SendButton = styled.button`
-  padding: ${({ theme }) => `${theme.spacing.md} ${theme.spacing.lg}`};
+  flex-shrink: 0; // Prevents the button from shrinking
+  padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.md}; // Adjusted padding for smaller screens
   background-color: ${({ theme }) => theme.colors.accent};
   color: ${({ theme }) => theme.colors.white};
   border: none;
@@ -96,6 +98,11 @@ const SendButton = styled.button`
   cursor: pointer;
   transition: all ${({ theme }) => theme.transitions.normal};
   font-weight: 600;
+  white-space: nowrap; // Prevents text from wrapping
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    padding: ${({ theme }) => `${theme.spacing.md} ${theme.spacing.lg}`}; // Restore original padding for larger screens
+  }
   
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary};
