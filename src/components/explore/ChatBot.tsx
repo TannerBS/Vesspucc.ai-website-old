@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 const ChatContainer = styled.div`
@@ -123,45 +123,96 @@ interface Message {
 const ChatBot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to the bottom of messages when new messages are added
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  // Adjust scroll on input focus for mobile to keep input visible below header and above keyboard
+  useEffect(() => {
+    const inputElement = inputRef.current;
+
+    const handleFocus = () => {
+      // Check for touch devices where virtual keyboard behavior is prominent
+      if (typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
+        setTimeout(() => {
+          if (inputElement) {
+            // ESTIMATED height of the fixed site header in pixels.
+            // This value might need adjustment based on the actual site header\'s height.
+            const headerHeight = 70; 
+            const buffer = 10; // Small buffer below the header
+            const targetInputTopInViewport = headerHeight + buffer;
+            
+            const inputRect = inputElement.getBoundingClientRect();
+            
+            // Calculate how much to scroll the page.
+            const scrollDeltaY = inputRect.top - targetInputTopInViewport;
+            
+            // Only scroll if the input is not already reasonably positioned
+            if (Math.abs(scrollDeltaY) > 5) {
+              window.scrollBy({
+                top: scrollDeltaY,
+                behavior: 'smooth'
+              });
+            }
+          }
+        }, 600); // Delay to allow keyboard to appear and layout to settle.
+      }
+    };
+
+    if (inputElement) {
+      inputElement.addEventListener('focus', handleFocus);
+    }
+
+    return () => {
+      if (inputElement) {
+        inputElement.removeEventListener('focus', handleFocus);
+      }
+    };
+  }, []); // Empty dependency array: effect runs on mount and unmount.
 
   const handleSendMessage = () => {
-    if (inputValue.trim()) {
-      const newMessage: Message = {
-        text: inputValue,
-        isUser: true
+    if (!inputValue.trim()) return;
+
+    const newMessage: Message = {
+      text: inputValue,
+      isUser: true,
+    };
+
+    setMessages((prev) => [...prev, newMessage]);
+    setInputValue('');
+
+    // Simulate bot response
+    setTimeout(() => {
+      const botMessage: Message = {
+        text: `Echo: ${newMessage.text}`,
+        isUser: false,
       };
-      
-      setMessages([...messages, newMessage]);
-      setInputValue('');
-      
-      // Simulate AI response
-      setTimeout(() => {
-        setMessages(prev => [...prev, {
-          text: `I'm your Captain Gonzalo Coelho You said: "${inputValue}"`,
-          isUser: false
-        }]);
-      }, 1000);
-    }
+      setMessages((prev) => [...prev, botMessage]);
+    }, 1000);
   };
 
   return (
     <ChatContainer>
       <MessagesContainer>
-        {messages.map((message, index) => (
-          <Message key={index} $isUser={message.isUser}>
-            <MessageBubble $isUser={message.isUser}>
-              {message.text}
+        {messages.map((msg, index) => (
+          <Message key={index} $isUser={msg.isUser}>
+            <MessageBubble $isUser={msg.isUser}>
+              {msg.text}
             </MessageBubble>
           </Message>
         ))}
+        <div ref={messagesEndRef} />
       </MessagesContainer>
-      
       <InputContainer>
-        <InputField 
+        <InputField
+          ref={inputRef}
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Type your message..."
-          onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
         />
         <SendButton onClick={handleSendMessage}>Send</SendButton>
       </InputContainer>
