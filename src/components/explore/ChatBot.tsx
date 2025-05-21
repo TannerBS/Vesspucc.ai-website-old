@@ -125,6 +125,7 @@ const ChatBot: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   // Scroll to the bottom of messages when new messages are added
   useEffect(() => {
@@ -136,56 +137,71 @@ const ChatBot: React.FC = () => {
   // Adjust scroll on input focus for mobile to keep input visible
   useEffect(() => {
     const inputElement = inputRef.current;
+    const chatContainerElement = chatContainerRef.current;
+    if (!inputElement) return;
+
+    let isFocused = false;
+
+    const adjustScrollForKeyboard = () => {
+      if (!inputElement || !chatContainerElement || !window.visualViewport || !isFocused) return;
+
+      // Delay to allow layout to settle after resize event or focus
+      setTimeout(() => {
+        if (!inputElement || !chatContainerElement || !window.visualViewport || !isFocused) return; // Re-check after timeout
+
+        const inputRect = inputElement.getBoundingClientRect();
+        const visualViewport = window.visualViewport;
+        const bufferAboveKeyboard = 20; // Space between input and keyboard
+
+        const desiredInputBottomRelativeToViewport = visualViewport.height - bufferAboveKeyboard;
+        let scrollDeltaY = inputRect.bottom - desiredInputBottomRelativeToViewport;
+
+        const estimatedHeaderHeight = 70; // IMPORTANT: Adjust to your actual fixed site header's height
+        const chatContainerRect = chatContainerElement.getBoundingClientRect();
+
+        // If scrolling by scrollDeltaY would push the ChatContainer top under the site header
+        if (chatContainerRect.top - scrollDeltaY < estimatedHeaderHeight) {
+          scrollDeltaY = chatContainerRect.top - estimatedHeaderHeight;
+        }
+        
+        // Only scroll if a significant adjustment is needed (e.g., more than 5px)
+        // And only scroll if the input is currently below its desired position (scrollDeltaY > 0) 
+        // or if it's slightly above but we need to ensure it's not cut by header (covered by above logic)
+        if (Math.abs(scrollDeltaY) > 5) {
+          window.scrollBy({
+            top: scrollDeltaY,
+            behavior: 'smooth' // Can try 'instant' if 'smooth' feels laggy
+          });
+        }
+      }, 200); // Delay in ms. Tune if needed.
+    };
 
     const handleFocus = () => {
-      if (typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
-        setTimeout(() => {
-          if (inputElement && window.visualViewport) {
-            const inputRect = inputElement.getBoundingClientRect();
-            const visualViewport = window.visualViewport;
-
-            // Target: Input field's bottom should be a small buffer above the keyboard.
-            // The keyboard top is effectively at visualViewport.height within the visual viewport.
-            const bufferAboveKeyboard = 10; // 10px buffer
-            const desiredInputBottomRelativeToViewport = visualViewport.height - bufferAboveKeyboard;
-
-            // Calculate how much to scroll the page.
-            // A positive scrollDeltaY means the page content needs to scroll UP, moving the input UP relative to the page (and thus potentially DOWN in a shrinking viewport or UP if it was too low).
-            let scrollDeltaY = inputRect.bottom - desiredInputBottomRelativeToViewport;
-
-            // Now, ensure the input field's top does not go above the site header.
-            const estimatedHeaderHeight = 70; // IMPORTANT: Adjust this to your actual site header's height.
-            const projectedInputTopAfterScroll = inputRect.top - scrollDeltaY;
-
-            if (projectedInputTopAfterScroll < estimatedHeaderHeight) {
-              // This scroll would push the input under the header.
-              // Adjust scrollDeltaY so the input's top aligns with the bottom of the header.
-              scrollDeltaY = inputRect.top - estimatedHeaderHeight;
-            }
-            
-            // Only scroll if a significant adjustment is needed (e.g., more than 5px)
-            if (Math.abs(scrollDeltaY) > 5) {
-              window.scrollBy({
-                top: scrollDeltaY,
-                behavior: 'smooth'
-              });
-            }
-          }
-        }, 600); // Delay to allow keyboard to appear and visualViewport to update. This might need tuning.
+      isFocused = true;
+      if (typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0) && window.visualViewport) {
+        adjustScrollForKeyboard(); // Initial attempt on focus
+        window.visualViewport.addEventListener('resize', adjustScrollForKeyboard);
       }
     };
 
-    if (inputElement) {
-      inputElement.addEventListener('focus', handleFocus);
-      // Consider adding a blur listener if you need to revert any changes or handle keyboard dismissal.
-    }
+    const handleBlur = () => {
+      isFocused = false;
+      if (typeof window !== 'undefined' && window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', adjustScrollForKeyboard);
+      }
+    };
+
+    inputElement.addEventListener('focus', handleFocus);
+    inputElement.addEventListener('blur', handleBlur);
 
     return () => {
-      if (inputElement) {
-        inputElement.removeEventListener('focus', handleFocus);
+      inputElement.removeEventListener('focus', handleFocus);
+      inputElement.removeEventListener('blur', handleBlur);
+      if (typeof window !== 'undefined' && window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', adjustScrollForKeyboard);
       }
     };
-  }, []); // Empty dependency array: effect runs only on mount and unmount.
+  }, []); // Runs once on mount
 
   const handleSendMessage = () => {
     if (!inputValue.trim()) return;
@@ -209,7 +225,7 @@ const ChatBot: React.FC = () => {
   };
 
   return (
-    <ChatContainer>
+    <ChatContainer ref={chatContainerRef}>
       <MessagesContainer>
         {messages.map((msg, index) => (
           <Message key={index} $isUser={msg.isUser}>
