@@ -175,11 +175,11 @@ const Navbar: React.FC = () => {
             Home
           </NavLink>
           <NavLink 
-            to="/explore" 
-            $isActive={location.pathname === '/explore'}
+            to="/chat" 
+            $isActive={location.pathname === '/chat'}
             onClick={() => setIsOpen(false)}
           >
-            Explore
+            Chat
           </NavLink>
           <NavLink 
             to="/agents" 

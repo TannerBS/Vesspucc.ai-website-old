@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import ChatBot from '../components/explore/ChatBot'
 
-const ExplorePageContainer = styled.div`
+const ChatPageContainer = styled.div`
   position: fixed; // Changed from relative/default to fixed
   top: 0;
   left: 0;
@@ -23,7 +23,7 @@ const ExplorePageContainer = styled.div`
   }
 `;
 
-const Explore: React.FC = () => {
+const Chat: React.FC = () => {
   useEffect(() => {
     const originalBodyOverflow = document.body.style.overflow;
     const originalHtmlOverflow = document.documentElement.style.overflow;
@@ -38,10 +38,10 @@ const Explore: React.FC = () => {
   }, []); // Empty dependency array ensures this runs only on mount and unmount
 
   return (
-    <ExplorePageContainer>
+    <ChatPageContainer>
       <ChatBot />
-    </ExplorePageContainer>
+    </ChatPageContainer>
   );
 };
 
-export default Explore;
+export default Chat;

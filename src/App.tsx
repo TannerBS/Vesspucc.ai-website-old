@@ -6,7 +6,7 @@ import ScrollToTop from './components/common/ScrollToTop' // Import ScrollToTop
 
 // Pages
 import Home from './pages/Home'
-import Explore from './pages/Explore'
+import Chat from './pages/Chat' // Updated import
 import Agents from './pages/Agents'
 import TokenInfo from './pages/TokenInfo'
 import NotFound from './pages/NotFound'
@@ -26,14 +26,14 @@ const App: React.FC = () => {
         <main style={{ display: 'flex', flexDirection: 'column', minHeight: 'calc(100vh - 70px)' }}> {/* Adjust 70px if Navbar height is different; this helps ensure main content can fill height */}
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/explore" element={<Explore />} />
+            <Route path="/chat" element={<Chat />} /> {/* Updated route path and element */}
             <Route path="/agents" element={<Agents />} />
             <Route path="/token" element={<TokenInfo />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         {/* Conditionally render Footer */} 
-        {location.pathname !== '/explore' && <Footer />}
+        {location.pathname !== '/chat' && <Footer />} {/* Updated path for footer condition */}
       </div>
     </ThemeProvider>
   )

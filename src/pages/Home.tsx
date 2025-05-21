@@ -4,7 +4,7 @@ import Hero from '../components/home/Hero'
 import Features from '../components/home/Features'
 import Agents from './Agents'
 import TokenInfo from './TokenInfo'
-import Explore from './Explore'
+import Explore from './Chat'
 
 const fadeIn = keyframes`
   from { opacity: 0; transform: translateY(20px); }
