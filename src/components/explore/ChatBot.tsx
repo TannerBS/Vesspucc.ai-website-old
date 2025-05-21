@@ -80,6 +80,11 @@ const InputField = styled.input`
   border-radius: ${({ theme }) => theme.borderRadius.md};
   margin-right: ${({ theme }) => theme.spacing.md};
   background: rgba(255, 255, 255, 0.8);
+  font-size: 16px; // Explicitly set for mobile to prevent zoom/pan issues
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    font-size: 1rem; // Can revert to 1rem or other preferred size on desktop
+  }
   
   &:focus {
     outline: none;
