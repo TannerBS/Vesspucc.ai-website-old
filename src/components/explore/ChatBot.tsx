@@ -1,20 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
-const ChatContainer = styled.div`
+const ChatContainer = styled.div<{ $keyboardOffset?: number }>`
   display: flex;
   flex-direction: column;
-  flex-grow: 1; // ADDED - Allow ChatContainer to fill available space in ExplorePageContainer
+  flex-grow: 1;
   background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(10px);
   border-radius: ${({ theme }) => theme.borderRadius.md};
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: ${({ theme }) => theme.boxShadow.md};
   overflow: hidden; // Keep this to manage internal scrolling of messages
+  padding-bottom: ${({ $keyboardOffset }) => $keyboardOffset || 0}px;
+  transition: padding-bottom 0.2s ease-out; // Smooth transition for keyboard appearance
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    // height: 70vh; // REMOVED
-    // max-height: none; // REMOVED
+    // No specific keyboard offset needed for desktop typically
+    padding-bottom: 0;
   }
 `;
 
@@ -122,6 +124,7 @@ interface Message {
 const ChatBot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
+  const [keyboardOffset, setKeyboardOffset] = useState(0); // ADDED state for keyboard offset
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -133,68 +136,34 @@ const ChatBot: React.FC = () => {
     }
   }, [messages]);
 
-  // Adjust scroll on input focus for mobile to keep input visible
+  // Effect to handle keyboard visibility and adjust layout
   useEffect(() => {
     const inputElement = inputRef.current;
     if (!inputElement) return;
 
     let isFocused = false;
 
-    const adjustInputPosition = () => { // Renamed for clarity
+    const adjustInputPosition = () => {
       if (!inputElement || !window.visualViewport || !isFocused) return;
 
+      // Short delay to allow visualViewport to update accurately
       setTimeout(() => {
-        if (!inputElement || !window.visualViewport || !isFocused) return;
+        if (!window.visualViewport || !isFocused) return; // Re-check after timeout
 
-        const visualViewport = window.visualViewport;
-        const inputContainer = inputElement.parentElement; // Assuming InputField is directly in InputContainer
+        const currentLayoutViewportHeight = window.innerHeight;
+        const currentVisualViewportHeight = window.visualViewport.height;
+        
+        // Calculate keyboard height. If keyboard is not visible, offset is 0.
+        const offset = currentLayoutViewportHeight - currentVisualViewportHeight;
+        setKeyboardOffset(offset > 0 ? offset : 0);
 
-        if (inputContainer) {
-          // We want the InputContainer to be positioned just above the keyboard.
-          // The visualViewport.height is the height of the viewport excluding the keyboard.
-          // visualViewport.offsetTop is the offset of the visual viewport from the layout viewport origin,
-          // which can be non-zero when the keyboard is up.
-          
-          // Calculate the available height for the chat content (MessagesContainer)
-          // This is roughly the visual viewport height minus the input container height and any header.
-          // This part is more about ensuring the InputContainer itself is positioned correctly.
-          
-          // The main goal is to adjust the bottom of the ChatContainer or InputContainer
-          // so it aligns with the top of the keyboard (visualViewport.height).
-          // This might involve setting the `bottom` style of the InputContainer dynamically
-          // or adjusting padding/margins, rather than scrolling the whole window.
-
-          // For a full-screen chat, we primarily want to ensure the InputContainer
-          // is not obscured by the keyboard. The MessagesContainer should then use the remaining space.
-          
-          // Let's try to adjust the bottom padding of the ChatContainer or a similar approach
-          // to effectively 'push up' the InputContainer.
-          // This specific logic might need to be in ChatContainer's styled component or via direct style manipulation.
-          
-          // Given the new full-screen approach, direct window scrolling is less desirable.
-          // The ChatContainer itself is now the main scrollable area (for messages).
-          // The InputContainer should ideally stick to the bottom of the ChatContainer,
-          // and the ChatContainer's height should adjust when the keyboard appears.
-
-          // Let's simplify: The ExplorePageContainer is 100vh minus navbar.
-          // ChatContainer is flex-grow: 1. InputContainer is at the bottom of ChatContainer.
-          // When keyboard appears, visualViewport.height shrinks.
-          // We need to ensure InputContainer is visible.
-          // The most straightforward might be to adjust the padding-bottom of the ChatContainer
-          // or the height of the MessagesContainer dynamically.
-
-          // For this iteration, I will remove the window.scrollBy part.
-          // The full-screen nature with overflow:hidden on ExplorePageContainer
-          // means scrolling the window is not the right approach.
-          // The internal layout of ChatBot (MessagesContainer, InputContainer) needs to adapt.
-        }
-      }, 100); // Short delay
+      }, 100); // Delay in ms. Tune if needed.
     };
 
     const handleFocus = () => {
       isFocused = true;
       if (typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0) && window.visualViewport) {
-        // adjustInputPosition(); // Initial attempt on focus - might not be needed if resize handles it
+        adjustInputPosition(); // Adjust on focus in case keyboard is already up or appears quickly
         window.visualViewport.addEventListener('resize', adjustInputPosition);
       }
     };
@@ -203,12 +172,15 @@ const ChatBot: React.FC = () => {
       isFocused = false;
       if (typeof window !== 'undefined' && window.visualViewport) {
         window.visualViewport.removeEventListener('resize', adjustInputPosition);
+        // Optionally reset keyboardOffset when input is blurred, if desired
+        // setTimeout(() => setKeyboardOffset(0), 100); // Add slight delay to avoid jumpiness if re-focusing quickly
       }
     };
 
     inputElement.addEventListener('focus', handleFocus);
     inputElement.addEventListener('blur', handleBlur);
 
+    // Cleanup listeners on component unmount
     return () => {
       inputElement.removeEventListener('focus', handleFocus);
       inputElement.removeEventListener('blur', handleBlur);
@@ -216,7 +188,7 @@ const ChatBot: React.FC = () => {
         window.visualViewport.removeEventListener('resize', adjustInputPosition);
       }
     };
-  }, []); // Dependencies: inputRef (implicitly)
+  }, []); // Empty dependency array, runs once on mount
 
   const handleSendMessage = () => {
     if (!inputValue.trim()) return;
@@ -240,7 +212,7 @@ const ChatBot: React.FC = () => {
   };
 
   return (
-    <ChatContainer ref={chatContainerRef}>
+    <ChatContainer ref={chatContainerRef} $keyboardOffset={keyboardOffset}>
       <MessagesContainer>
         {messages.map((msg, index) => (
           <Message key={index} $isUser={msg.isUser}>
