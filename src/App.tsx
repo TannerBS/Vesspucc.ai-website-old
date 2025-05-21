@@ -2,6 +2,7 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { theme } from './styles/theme'
+import ScrollToTop from './components/common/ScrollToTop' // Import ScrollToTop
 
 // Pages
 import Home from './pages/Home'
@@ -17,6 +18,7 @@ import Footer from './components/layout/Footer'
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
+      <ScrollToTop /> {/* Add ScrollToTop here */}
       <div className="app">
         <Navbar />
         <main>
