@@ -128,29 +128,42 @@ const ChatBot: React.FC = () => {
 
   // Scroll to the bottom of messages when new messages are added
   useEffect(() => {
-    if (messages.length > 0) { // MODIFIED: Only scroll if there are messages
+    if (messages.length > 0) { 
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
 
-  // Adjust scroll on input focus for mobile to keep input visible below header and above keyboard
+  // Adjust scroll on input focus for mobile to keep input visible
   useEffect(() => {
     const inputElement = inputRef.current;
 
     const handleFocus = () => {
-      // Check for touch devices where virtual keyboard behavior is prominent
       if (typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
         setTimeout(() => {
-          if (inputElement) {
-            // ESTIMATED height of the fixed site header in pixels.
-            const headerHeight = 100; // MODIFIED: Increased for more space
-            const buffer = 20;      // MODIFIED: Increased for more buffer
-            const targetInputTopInViewport = headerHeight + buffer;
-            
+          if (inputElement && window.visualViewport) {
             const inputRect = inputElement.getBoundingClientRect();
+            const visualViewport = window.visualViewport;
+
+            // Target: Input field's bottom should be a small buffer above the keyboard.
+            // The keyboard top is effectively at visualViewport.height within the visual viewport.
+            const bufferAboveKeyboard = 10; // 10px buffer
+            const desiredInputBottomRelativeToViewport = visualViewport.height - bufferAboveKeyboard;
+
+            // Calculate how much to scroll the page.
+            // A positive scrollDeltaY means the page content needs to scroll UP, moving the input UP relative to the page (and thus potentially DOWN in a shrinking viewport or UP if it was too low).
+            let scrollDeltaY = inputRect.bottom - desiredInputBottomRelativeToViewport;
+
+            // Now, ensure the input field's top does not go above the site header.
+            const estimatedHeaderHeight = 70; // IMPORTANT: Adjust this to your actual site header's height.
+            const projectedInputTopAfterScroll = inputRect.top - scrollDeltaY;
+
+            if (projectedInputTopAfterScroll < estimatedHeaderHeight) {
+              // This scroll would push the input under the header.
+              // Adjust scrollDeltaY so the input's top aligns with the bottom of the header.
+              scrollDeltaY = inputRect.top - estimatedHeaderHeight;
+            }
             
-            const scrollDeltaY = inputRect.top - targetInputTopInViewport;
-            
+            // Only scroll if a significant adjustment is needed (e.g., more than 5px)
             if (Math.abs(scrollDeltaY) > 5) {
               window.scrollBy({
                 top: scrollDeltaY,
@@ -158,12 +171,13 @@ const ChatBot: React.FC = () => {
               });
             }
           }
-        }, 600); // Delay to allow keyboard to appear and layout to settle.
+        }, 600); // Delay to allow keyboard to appear and visualViewport to update. This might need tuning.
       }
     };
 
     if (inputElement) {
       inputElement.addEventListener('focus', handleFocus);
+      // Consider adding a blur listener if you need to revert any changes or handle keyboard dismissal.
     }
 
     return () => {
@@ -171,7 +185,7 @@ const ChatBot: React.FC = () => {
         inputElement.removeEventListener('focus', handleFocus);
       }
     };
-  }, []); // Empty dependency array: effect runs on mount and unmount.
+  }, []); // Empty dependency array: effect runs only on mount and unmount.
 
   const handleSendMessage = () => {
     if (!inputValue.trim()) return;
