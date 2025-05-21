@@ -24,13 +24,18 @@ const ExplorePageContainer = styled.div`
 `;
 
 const Explore: React.FC = () => {
-  // Optional: Add a class to body to prevent scrolling when this page is active
   useEffect(() => {
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+
     document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
     return () => {
-      document.body.style.overflow = 'auto'; // Reset on component unmount
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
     };
-  }, []);
+  }, []); // Empty dependency array ensures this runs only on mount and unmount
 
   return (
     <ExplorePageContainer>
